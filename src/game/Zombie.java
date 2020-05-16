@@ -16,6 +16,9 @@ import edu.monash.fit2099.engine.IntrinsicWeapon;
  *
  */
 public class Zombie extends ZombieActor {
+	private int num_of_arms;
+	private int num_of_legs;
+
 	private Behaviour[] behaviours = {
 			new AttackBehaviour(ZombieCapability.ALIVE),
 			new HuntBehaviour(Human.class, 10),
@@ -24,6 +27,8 @@ public class Zombie extends ZombieActor {
 
 	public Zombie(String name) {
 		super(name, 'Z', 100, ZombieCapability.UNDEAD);
+		this.num_of_arms = 2;
+		this.num_of_legs = 2;
 	}
 	
 
@@ -43,11 +48,20 @@ public class Zombie extends ZombieActor {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		System.out.println(getNum_of_arms());
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
 			if (action != null)
 				return action;
 		}
 		return new DoNothingAction();	
+	}
+
+	public int getNum_of_arms() {
+		return num_of_arms;
+	}
+
+	public int getNum_of_legs() {
+		return num_of_legs;
 	}
 }
