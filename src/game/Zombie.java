@@ -1,11 +1,6 @@
 package game;
 
-import edu.monash.fit2099.engine.Action;
-import edu.monash.fit2099.engine.Actions;
-import edu.monash.fit2099.engine.Display;
-import edu.monash.fit2099.engine.DoNothingAction;
-import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.IntrinsicWeapon;
+import edu.monash.fit2099.engine.*;
 
 /**
  * A Zombie.
@@ -37,6 +32,7 @@ public class Zombie extends ZombieActor {
 		return new IntrinsicWeapon(10, "punches");
 	}
 
+
 	/**
 	 * If a Zombie can attack, it will.  If not, it will chase any human within 10 spaces.  
 	 * If no humans are close enough it will wander randomly.
@@ -48,7 +44,6 @@ public class Zombie extends ZombieActor {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		System.out.println(getNum_of_arms());
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
 			if (action != null)
@@ -64,4 +59,5 @@ public class Zombie extends ZombieActor {
 	public int getNum_of_legs() {
 		return num_of_legs;
 	}
+
 }

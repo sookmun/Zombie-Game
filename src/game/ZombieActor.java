@@ -25,3 +25,4 @@ public abstract class ZombieActor extends Actor {
 		return list;
 	}
 }
+
