@@ -7,6 +7,8 @@ import edu.monash.fit2099.engine.DoNothingAction;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.IntrinsicWeapon;
 
+import java.util.Random;
+
 /**
  * A Zombie.
  * 
@@ -16,8 +18,9 @@ import edu.monash.fit2099.engine.IntrinsicWeapon;
  *
  */
 public class Zombie extends ZombieActor {
-	private int num_of_arms;
-	private int num_of_legs;
+	protected int num_of_arms;
+	protected int num_of_legs;
+	protected Random rand = new Random();
 
 	private Behaviour[] behaviours = {
 			new AttackBehaviour(ZombieCapability.ALIVE),
@@ -34,7 +37,12 @@ public class Zombie extends ZombieActor {
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		return new IntrinsicWeapon(10, "punches");
+		if (rand.nextBoolean()) {
+			return new IntrinsicWeapon(20, "bites");
+		}
+		else {
+			return new IntrinsicWeapon(10, "punches");
+		}
 	}
 
 	/**
@@ -48,7 +56,6 @@ public class Zombie extends ZombieActor {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		System.out.println(getNum_of_arms());
 		for (Behaviour behaviour : behaviours) {
 			Action action = behaviour.getAction(this, map);
 			if (action != null)
