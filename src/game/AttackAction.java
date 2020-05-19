@@ -44,6 +44,12 @@ public class AttackAction extends Action {
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 
+		// if a successful zombie bite attack add 5 health points
+		if(actor.hasCapability(ZombieCapability.UNDEAD) && weapon.verb().equals("bites")){
+			actor.heal(5);
+
+		}
+
 		target.hurt(damage);
 		if (!target.isConscious()) {
 			Item corpse = new PortableItem("dead " + target, '%');
@@ -58,6 +64,7 @@ public class AttackAction extends Action {
 			
 			result += System.lineSeparator() + target + " is killed.";
 		}
+
 
 		return result;
 	}
