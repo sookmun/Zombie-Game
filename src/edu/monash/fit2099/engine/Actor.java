@@ -187,4 +187,6 @@ public abstract class Actor implements ActorInterface, Capable, Printable {
 	public void removeCapability(Enum<?> capability) {
 		capabilities.removeCapability(capability);
 	}
+
+	public int getHitPoints(){ return hitPoints;} //added by tsm check if is okay to add this
 }
