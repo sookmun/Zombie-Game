@@ -55,11 +55,7 @@ public class AttackAction extends Action {
 				return actor + " misses " + target + ".";    //    misses the target
 			}
 		}
-
-		if (actor.hasCapability(ZombieCapability.UNDEAD) && weapon.verb().equals("bites")){
-			actor.heal(5);
-		}
-
+		
 
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
@@ -67,7 +63,6 @@ public class AttackAction extends Action {
 		// if a successful zombie bite attack add 5 health points
 		if(actor.hasCapability(ZombieCapability.UNDEAD) && weapon.verb().equals("bites")){
 			actor.heal(5);
-
 		}
 
 		target.hurt(damage);
