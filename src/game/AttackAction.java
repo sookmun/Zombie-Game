@@ -32,14 +32,34 @@ public class AttackAction extends Action {
 		this.target = target;
 	}
 
+	public static boolean getBooleanWithProbability(int probabilityOfTrue) {
+		if (probabilityOfTrue <= 0) {
+			return false;
+		}
+		else {
+			return new Random().nextInt(100) + 1 <= probabilityOfTrue;
+		}
+	}
+
 	@Override
 	public String execute(Actor actor, GameMap map) {
+		Weapon weapon = actor.getWeapon();    // get weapon. Return WeaponItem, else Intrinsic Weapon
 
-		Weapon weapon = actor.getWeapon();
-
-		if (rand.nextBoolean()) {
-			return actor + " misses " + target + ".";
+		if (actor.getClass().getName().equals("game.Zombie") && weapon.verb().equals("bites")){    // Zombie's bite action
+			if (!getBooleanWithProbability(30)){   // only 30% change of biting. if false, means do not bite
+				return actor + " misses " + target + ".";    //    misses the target
+			}
 		}
+		else {    // if not Zombie or the Zombie's IntrinsicWeapon is 'punches'
+			if (rand.nextBoolean()) {            // Generate a random generator. 50% probability of attacking
+				return actor + " misses " + target + ".";    //    misses the target
+			}
+		}
+
+		if (actor.hasCapability(ZombieCapability.UNDEAD) && weapon.verb().equals("bites")){
+			actor.heal(5);
+		}
+
 
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
