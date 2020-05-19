@@ -47,7 +47,6 @@ public class AttackAction extends Action {
 		// if a successful zombie bite attack add 5 health points
 		if(actor.hasCapability(ZombieCapability.UNDEAD) && weapon.verb().equals("bites")){
 			actor.heal(5);
-
 		}
 
 		target.hurt(damage);
