@@ -1,11 +1,6 @@
 package game;
 
-import edu.monash.fit2099.engine.Action;
-import edu.monash.fit2099.engine.Actions;
-import edu.monash.fit2099.engine.Display;
-import edu.monash.fit2099.engine.DoNothingAction;
-import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.IntrinsicWeapon;
+import edu.monash.fit2099.engine.*;
 
 import java.util.Random;
 
@@ -45,6 +40,7 @@ public class Zombie extends ZombieActor {
 		}
 	}
 
+
 	/**
 	 * If a Zombie can attack, it will.  If not, it will chase any human within 10 spaces.  
 	 * If no humans are close enough it will wander randomly.
@@ -71,4 +67,5 @@ public class Zombie extends ZombieActor {
 	public int getNum_of_legs() {
 		return num_of_legs;
 	}
+
 }

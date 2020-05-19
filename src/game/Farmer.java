@@ -6,9 +6,11 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Menu;
 
 public class Farmer extends Human {
-    public Farmer(String name, char displayChar, int hitpoints) {
-        super(name, displayChar, hitpoints);
+    public Farmer(String name, int hitpoints) {
+        super(name, 'F', hitpoints);
     }
+
+
 
 
 }
