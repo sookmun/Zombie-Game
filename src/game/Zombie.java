@@ -53,13 +53,40 @@ public class Zombie extends ZombieActor {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		// MODIFIED by LYY
 		for (Behaviour behaviour : behaviours) {
-			Action action = behaviour.getAction(this, map);
-			if (action != null)
-				return action;
+			if (num_of_legs==2){
+				Action action = behaviour.getAction(this, map);
+				if (action != null)
+					return action;
+			}
+			else if (num_of_legs==1){
+				Action action = behaviour.getAction(this, map);
+				if(behaviour.getClass().getName().equals("game.AttackBehaviour")){
+					if (action != null) {
+						return action;
+					}
+				}
+				else if (behaviour.getClass().getName().equals("game.WanderBehaviour") || (behaviour.getClass().getName().equals("game.HuntBehaviour"))) {	// if current action is to move
+					if (lastAction.getClass().getName().equals("edu.monash.fit2099.engine.DoNothingAction")) {
+						if (action != null){
+							return action;
+						}
+					}
+				}
+			}
+			else if (num_of_legs==0){
+				Action action = behaviour.getAction(this, map);
+				if (behaviour.getClass().getName().equals("game.WanderBehaviour") || (behaviour.getClass().getName().equals("game.HuntBehaviour"))) {    // if current action is to move
+					System.out.println(name + " can't move as it has no more legs");
+					return new DoNothingAction();    // zombie can't move at all
+				}
+				else{
+					if (action != null)
+						return action;
+				}
+			}
 		}
-		return new DoNothingAction();	
+		return new DoNothingAction();
 	}
-
-
 }
