@@ -65,6 +65,7 @@ public class AttackAction extends Action {
 			actor.heal(5);
 		}
 
+
 		target.hurt(damage);
 		if (!target.isConscious()) {
 			Item corpse = new PortableItem("dead " + target, '%');

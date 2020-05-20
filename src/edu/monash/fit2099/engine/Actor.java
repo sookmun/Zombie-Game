@@ -188,5 +188,4 @@ public abstract class Actor implements ActorInterface, Capable, Printable {
 		capabilities.removeCapability(capability);
 	}
 
-	public int getHitPoints(){ return hitPoints;} //added by tsm check if is okay to add this
 }
