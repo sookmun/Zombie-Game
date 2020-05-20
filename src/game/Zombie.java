@@ -15,6 +15,7 @@ import java.util.Random;
 public class Zombie extends ZombieActor {
 	protected int num_of_arms;
 	protected int num_of_legs;
+
 	protected Random rand = new Random();
 
 	private Behaviour[] behaviours = {
@@ -60,12 +61,5 @@ public class Zombie extends ZombieActor {
 		return new DoNothingAction();	
 	}
 
-	public int getNum_of_arms() {
-		return num_of_arms;
-	}
-
-	public int getNum_of_legs() {
-		return num_of_legs;
-	}
 
 }
