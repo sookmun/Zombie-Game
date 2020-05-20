@@ -2,6 +2,8 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
+import java.util.List;
+
 /**
  * Class representing the Player.
  */
@@ -22,9 +24,23 @@ public class Player extends Human {
 
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		// Handle multi-turn Actions
+		//added by tsm remove if interfere with application
+		//always checks if there are any zombie limbs in the inventory
+		List<Item> inventory= this.getInventory();
+		for(Item item: inventory){
+			if(item.getDisplayChar()-'a' ==0 || item.getDisplayChar()-'l'==0){
+				//if there is zombie limbs then add craft action
+				Action craft = new CraftAction();
+				actions.add(craft);
+			}
+		}
+
+
+
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
-		return menu.showMenu(this, actions, display);
+
+		return menu.showMenu(this,actions,display) ;
+
 	}
 }

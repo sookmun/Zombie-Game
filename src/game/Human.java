@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class Human extends ZombieActor {
 	private Behaviour behaviour = new WanderBehaviour();
-//	private Behaviour[] behaviour = {new WanderBehaviour(), new CraftingBehaviour()};
 
 	/**
 	 * The default constructor creates default Humans
