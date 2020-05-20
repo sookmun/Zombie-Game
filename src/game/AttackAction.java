@@ -118,7 +118,7 @@ public class AttackAction extends Action {
 							System.out.println(weapon.getDropAction().execute(target, map));
 						}
 					}
-					map.locationOf(target).addItem(new PortableItem("ZombieArm", 'a'));        // Zombie's arm dropped to the ground
+					map.locationOf(target).addItem(new ZombieArm());        // Zombie's arm dropped to the ground
 					return (target + " loses one arm and has one arm left");
 				}
 				if (target.num_of_arms <= 0) {    // if loses both arm, drops weapon. A negative number if zombie has one arm left and random generator outcome == 2
@@ -130,11 +130,11 @@ public class AttackAction extends Action {
 							System.out.println(weapon.getDropAction().execute(target, map));
 						}
 					}
-					map.locationOf(target).addItem(new PortableItem("ZombieArm",'a')); // drop one arm
+					map.locationOf(target).addItem(new ZombieArm()); // drop one arm
 					if (ori_arm==1){	// if zombie originally has 1 arm and loses another arm
 						return (target + " loses one arm and has no arm left");
 					} else{		// if zombie originally has both arm, and loses both arms
-						map.locationOf(target).addItem(new PortableItem("ZombieArm",'a'));	// drop another arm
+						map.locationOf(target).addItem(new ZombieArm());	// drop another arm
 						return (target + " loses both arm and has no arms left");
 					}
 				}
@@ -144,19 +144,18 @@ public class AttackAction extends Action {
 				System.out.println(target.num_of_legs + "after losing");	// delete later
 				if (target.num_of_legs == 1) {        // if loses 1 leg, movement speed is halved
 					System.out.println(target.num_of_legs + " 1 after losing");	// delete later
-					map.locationOf(target).addItem(new PortableItem("ZombieLeg", 'l'));
+					map.locationOf(target).addItem(new ZombieLeg());
 					return(target + " loses one leg and has one leg left");
 				}
 				if (target.num_of_legs <= 0) {    // if loses both legs, cannot move at all
 					System.out.println(target.num_of_legs + "after losing");	// delete later
 					target.num_of_legs = 0;
 					System.out.println(target.num_of_legs + " 0 after losing");	// delete later
+					map.locationOf(target).addItem(new ZombieLeg());
 					if (ori_leg == 1) {    // if zombie originally has 1 leg and loses another leg
-						map.locationOf(target).addItem(new PortableItem("ZombieLeg", 'l'));
 						return(target + " loses one leg and has no leg left");
 					} else {        // if zombie originally has both legs, and loses both legs
-						map.locationOf(target).addItem(new PortableItem("ZombieLeg", 'l'));
-						map.locationOf(target).addItem(new PortableItem("ZombieLeg", 'l'));
+						map.locationOf(target).addItem(new ZombieLeg());
 						return(target + " loses both legs and has no leg left");
 					}
 				}
