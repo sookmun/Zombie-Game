@@ -63,6 +63,7 @@ public class AttackAction extends Action {
 			System.out.println(damaged_zombie((Zombie) target, map));
 		}
 
+
 		target.hurt(damage);
 		if (!target.isConscious()) {
 			Item corpse = new PortableItem("dead " + target, '%');

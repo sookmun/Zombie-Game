@@ -2,6 +2,9 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class representing an ordinary human.
  * 
@@ -33,17 +36,11 @@ public class Human extends ZombieActor {
 		super(name, displayChar, hitPoints, ZombieCapability.ALIVE);
 	}
 
+
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		// FIXME humans are pretty dumb, maybe they should at least run away from zombies?
 		return behaviour.getAction(this, map);
-	}
-
-	//added by tsm
-	//allow humans to pick up item
-	public void pickupitem(Item item,GameMap gameMap){
-		Action pickUp= new PickUpItemAction(item);
-		System.out.println(pickUp.execute(this,gameMap));
 
 	}
 
