@@ -30,8 +30,15 @@ public class Zombie extends ZombieActor {
 		this.num_of_arms = 2;
 		this.num_of_legs = 2;
 	}
-	
 
+	/**
+	 * A method that determines which IntrinsicWeapon should be used by the Zombie
+	 * The probability of the action returned will depend on the number of arms left
+	 *
+	 * @return either a bite or punch action
+	 *
+	 * @author Lai Ying Ying
+	 */
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
 		boolean bool;
@@ -65,8 +72,7 @@ public class Zombie extends ZombieActor {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		// MODIFIED by LYY
-		if (rand.nextInt(100)+1 <= 10){
+		if (rand.nextInt(100)+1 <= 10){	// 10% chance of saying 'Braaaaaains'
 			return new GroanAction();
 		}
 

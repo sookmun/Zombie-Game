@@ -37,6 +37,14 @@ public class AttackAction extends Action {
 		}
 	}
 
+	/**
+	 * A method that execute an AttackAction, Zombie can use WeaponItem or IntrinsicWeapon
+	 * @param actor The actor performing the action.
+	 * @param map The map the actor is on.
+	 * @return a description of what the actor does
+	 *
+	 * @author Lai Ying Ying
+	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		Weapon weapon = actor.getWeapon();    // get weapon. Return WeaponItem, else Intrinsic Weapon
@@ -93,6 +101,12 @@ public class AttackAction extends Action {
 		return actor + " attacks " + target;
 	}
 
+	/**
+	 * A method that determines whether zombie should lose their limbs
+	 * @param target: Zombie that will lose its limb(s)
+	 * @param map: GameMap
+	 * @return a description stating if the Zombie loses its linb(s)
+	 */
 	public String damaged_zombie(Zombie target, GameMap map) {
 		if (getBooleanWithProbability(50) && (target.num_of_arms>=1 || target.num_of_legs>=1)) {	// 50% of losing 1 or 2 limbs if and only if the zombie still has limbs
 			Random random = new Random();	// random generator to decide if the zombie loses 1 or 2 limbs
