@@ -51,7 +51,6 @@ public class Application {
 		
 		Actor player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(42, 15));
-		
 	    // Place some random humans
 		String[] humans = {"Carlton", "May", "Vicente", "Andrea", "Wendy",
 				"Elina", "Winter", "Clem", "Jacob", "Jaquelyn"};
@@ -62,7 +61,7 @@ public class Application {
 				y = (int) Math.floor(Math.random() * 7.0 + 5.0);
 			} 
 			while (gameMap.at(x, y).containsAnActor());
-			gameMap.at(x,  y).addActor(new Human(name));	
+			gameMap.at(x,  y).addActor(new Human(name));
 		}
 		
 		// place a simple weapon

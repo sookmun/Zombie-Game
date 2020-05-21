@@ -68,7 +68,6 @@ public class AttackAction extends Action {
 		if (!target.isConscious()) {
 			Item corpse = new PortableItem("dead " + target, '%');
 			map.locationOf(target).addItem(corpse);
-			
 			Actions dropActions = new Actions();
 			for (Item item : target.getInventory())
 				dropActions.add(item.getDropAction());

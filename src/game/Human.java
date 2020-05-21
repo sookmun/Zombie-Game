@@ -40,9 +40,25 @@ public class Human extends ZombieActor {
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		// FIXME humans are pretty dumb, maybe they should at least run away from zombies?
-		return behaviour.getAction(this, map);
+		for (Action action : actions) {
+			//human will always pick up stuff (ect food or weapon) and if there is food it will eat
+			if (action instanceof PickUpItemAction) {
+				return action;
+			}
+		}
+		if(lastAction instanceof PickUpItemAction){ //if human pick of item check if is a food
+			List<Item> inventory= this.getInventory();
+			for(Item item: inventory){
+				if(item.getDisplayChar()-'F'==0){
+					return new EatAction(); // if it is a food eat it
+				}
+			}
+		}
 
+		return behaviour.getAction(this, map);
 	}
+
+
 
 
 }
