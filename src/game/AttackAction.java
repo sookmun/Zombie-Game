@@ -108,7 +108,7 @@ public class AttackAction extends Action {
 	 * @return a description stating if the Zombie loses its linb(s)
 	 */
 	public String damaged_zombie(Zombie target, GameMap map) {
-		if (getBooleanWithProbability(50) && (target.num_of_arms>=1 || target.num_of_legs>=1)) {	// 50% of losing 1 or 2 limbs if and only if the zombie still has limbs
+		if (getBooleanWithProbability(30) && (target.num_of_arms>=1 || target.num_of_legs>=1)) {	// 50% of losing 1 or 2 limbs if and only if the zombie still has limbs
 			Random random = new Random();	// random generator to decide if the zombie loses 1 or 2 limbs
 			int num_loseLimbs = random.nextInt(2)+1;
 
