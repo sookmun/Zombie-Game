@@ -76,7 +76,6 @@ public class AttackAction extends Action {
 			}
 
 			map.locationOf(target).addItem(corpse);
-			
 			Actions dropActions = new Actions();
 			for (Item item : target.getInventory())
 				dropActions.add(item.getDropAction());

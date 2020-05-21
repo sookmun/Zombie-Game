@@ -43,5 +43,4 @@ public class Player extends Human {
 		return menu.showMenu(this,actions,display) ;
 
 	}
-
 }

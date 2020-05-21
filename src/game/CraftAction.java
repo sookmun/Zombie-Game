@@ -15,18 +15,14 @@ public class CraftAction extends Action {
         for (Item item : inventory) {
             //if there is a zombie arm inside
             if (item.getDisplayChar() - 'a' == 0) {
-                item.getDropAction().execute(actor, map);
-                map.locationOf(actor).removeItem(item);
-                Item zombieClub = new ZombieClub();
-                zombieClub.getPickUpAction().execute(actor, map);
+                actor.removeItemFromInventory(item);
+                actor.addItemToInventory(new ZombieClub());
                 return "Player crafted a Zombie Club";
             }
             //if there is a zombie leg inside
             else if (item.getDisplayChar() - 'l'==0){
-                item.getDropAction().execute(actor, map);
-                map.locationOf(actor).removeItem(item);
-                Item zombieMace = new ZombieMace();
-                zombieMace.getPickUpAction().execute(actor, map);
+                actor.removeItemFromInventory(item);
+                actor.addItemToInventory(new ZombieMace());
                 return "Player Crafted a Zombie Mace";
             }
         }

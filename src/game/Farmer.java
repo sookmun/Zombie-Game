@@ -6,8 +6,14 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Menu;
 
 public class Farmer extends Human {
+
     public Farmer(String name, int hitpoints) {
         super(name, 'F', hitpoints);
+    }
+
+    public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display){
+        //loop through behaviour??
+        return null;
     }
 
 
