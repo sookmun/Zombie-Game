@@ -21,7 +21,6 @@ public class Corpse extends PortableItem {
     public void tick(Location currentLocation, Actor actor) {
         super.tick(currentLocation, actor);
         count+=1;
-        System.out.println(count);
         this.location=currentLocation;
         this.actor = actor;
     }
@@ -30,7 +29,6 @@ public class Corpse extends PortableItem {
     public void tick(Location currentLocation) {
         super.tick(currentLocation);
         count+=1;
-        System.out.println(count);
         this.location=currentLocation;
         this.actor = null;
         if (count>=10){
@@ -45,7 +43,7 @@ public class Corpse extends PortableItem {
         }
         else{
             Location next = new Location(map, here.x(), here.y()+1);
-            next.addActor(new Zombie(name + "_zombie"));
+            next.addActor(new Zombie(name));
         }
         location.removeItem(location.getItems().get(location.getItems().size()-1)); // drop the last item in the list, which is the corpse
         System.out.println(name + "'s corpse rise as a zombie");
