@@ -4,6 +4,9 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
 
+/**
+ * is an item that can be sown, harvest and turn into food. During initialisation it has Unripe capability
+ */
 public class Crop extends Item {
     private int count;
     public Crop(){
@@ -12,11 +15,13 @@ public class Crop extends Item {
     }
 
     @Override
+    /**
+     * overiding a tick method to count the number of turns and if it reaches 20, the crop will ripe
+     */
     public void tick(Location currentLocation) {
         super.tick(currentLocation);
-        System.out.println("first tick");
         count+=1;
-        if (count==5){
+        if (count>=20){
             removeCapability(CropCapability.Unripe);
             addCapability(CropCapability.Ripe);
             count=0;
@@ -28,4 +33,12 @@ public class Crop extends Item {
         super.tick(currentLocation, actor);
 
     }
+
+    /**
+     * A function to add the counter when farmer fertilize
+     */
+    public void fertilize(){
+        count=+10;
+    }
+
 }
