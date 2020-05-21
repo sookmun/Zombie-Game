@@ -1,5 +1,6 @@
 package game;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import edu.monash.fit2099.engine.*;
 
 import java.util.Random;
@@ -33,10 +34,21 @@ public class Zombie extends ZombieActor {
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		if (rand.nextBoolean()) {
+		boolean bool;
+		if (num_of_arms==2){			// if both arms are present, 50% chance of doing either
+			bool = rand.nextBoolean();
+		}
+		else if (num_of_arms==1){		// if one arm left, 75% chance of biting
+			bool = rand.nextInt(100)+1 <= 75;
+		}
+		else{
+			bool = true;	// no arms are present, can only bite
+		}
+
+		if (bool){		// true --> bites
 			return new IntrinsicWeapon(20, "bites");
 		}
-		else {
+		else{		// false --> punches
 			return new IntrinsicWeapon(10, "punches");
 		}
 	}
@@ -54,6 +66,18 @@ public class Zombie extends ZombieActor {
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		// MODIFIED by LYY
+		if (rand.nextInt(100)+1 <= 10){
+			return new GroanAction();
+		}
+
+		for (Action action: actions){		// if there's a weapon on the floor, pick up the item
+			if (action.getClass().getName().equals("edu.monash.fit2099.engine.PickUpItemAction")){
+				if (num_of_arms>=1){
+					return action;
+				}
+			}
+		}
+
 		for (Behaviour behaviour : behaviours) {
 			if (num_of_legs==2){
 				Action action = behaviour.getAction(this, map);

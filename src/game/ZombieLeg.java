@@ -8,7 +8,7 @@ import edu.monash.fit2099.engine.WeaponItem;
 
 public class ZombieLeg extends WeaponItem {
     public ZombieLeg() {
-        super("Zombie Leg", 'a', 15, "hit");
+        super("Zombie Leg", 'l', 15, "hit");
 
     }
 }
