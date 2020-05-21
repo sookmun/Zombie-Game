@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Class representing an ordinary human.
@@ -14,6 +15,9 @@ import java.util.List;
  */
 public class Human extends ZombieActor {
 	private Behaviour behaviour = new WanderBehaviour();
+	private Random rand = new Random();
+	private Boolean flag=false;
+	private Item crop;
 
 	/**
 	 * The default constructor creates default Humans
@@ -54,6 +58,20 @@ public class Human extends ZombieActor {
 				}
 			}
 		}
+
+//		List<Item> itemGround = map.locationOf(this).getItems();
+//		for (Item item : itemGround){ // loop through what is on the ground
+//			if(item.getDisplayChar()-'C'==0){ //if there is a crop set flag and save item
+//				flag=true;
+//				crop=item;
+//			}
+//
+//		}
+//		//with a probability of 30% humans may damage a crop when standing on it
+//		if(rand.nextDouble()<0.30 && flag ){
+//			map.locationOf(this).removeItem(crop);
+//			System.out.println(this.toString()+ "destroyed the crop");
+//		}
 
 		return behaviour.getAction(this, map);
 	}

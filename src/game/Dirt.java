@@ -9,7 +9,5 @@ public class Dirt extends Ground {
 
 	public Dirt() {
 		super('.');
-		//added by tsm
-		addCapability(DirtCapability.NORMALDIRT);
 	}
 }

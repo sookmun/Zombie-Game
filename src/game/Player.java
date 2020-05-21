@@ -22,6 +22,14 @@ public class Player extends Human {
 		super(name, displayChar, hitPoints);
 	}
 
+	/**
+	 * Player actions when its turn to play. If there is food or zombie limbs add in the appropriate action in actions list
+	 * @param actions list of actions that player is allow to have
+	 * @param lastAction the last action that the player had
+	 * @param map map of game
+	 * @param display display
+	 * @return return the action that is chosen by player
+	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		//added by tsm remove if interfere with application
@@ -33,7 +41,7 @@ public class Player extends Human {
 				Action craft = new CraftAction();
 				actions.add(craft);
 			}
-
+			//if there is food add eat action
 			if (item.getDisplayChar()-'F'==0){
 				Action eat= new EatAction();
 				actions.add(eat);
@@ -42,14 +50,9 @@ public class Player extends Human {
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 
-		return menu.showMenu(this,actions,display) ;
+		return menu.showMenu(this,actions,display);
 
 	}
-	public Counter getCounter(){
-
-		return counter;
-	}
-
 
 
 }

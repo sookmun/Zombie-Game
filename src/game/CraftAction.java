@@ -7,9 +7,19 @@ import edu.monash.fit2099.engine.Item;
 
 import java.util.List;
 
+/**
+ * Special action that allow player to craft a weapon
+ * Author:Tan Sook Mun
+ */
 
 public class CraftAction extends Action {
-
+    /**
+     * Checks if there is zombie limbs and craft it
+     * @param actor The actor performing the action.
+     * @param map The map the actor is on.
+     * @return a string description of what had been done
+     */
+    @Override
     public String execute(Actor actor, GameMap map) {
         List<Item> inventory = actor.getInventory();
         for (Item item : inventory) {
@@ -26,10 +36,10 @@ public class CraftAction extends Action {
                 return "Player Crafted a Zombie Mace";
             }
         }
-        //maybe raise exception?? check for craft action too
-        return "Player cant craft because there is no limbs";
-    }
 
+        return "Player cant craft because there is no limb";
+    }
+    @Override
     public String menuDescription (Actor actor){
             return actor + " craft Zombie limbs into weapon";
         }

@@ -77,11 +77,6 @@ public class Application {
 		gameMap.at(25,20).addActor(new Farmer("farmer1")); //added farmer
 		gameMap.at(40,15).addActor(new Farmer("farmer2"));
 		gameMap.at(17,18).addActor(new Farmer("farmer3"));
-		Item crop = new Crop();
-		crop.removeCapability(CropCapability.Unripe);
-		crop.addCapability(CropCapability.Ripe);
-		//testing
-		gameMap.at(17,18).addItem(crop);
 		world.run();
 
 	}

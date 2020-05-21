@@ -7,8 +7,18 @@ import edu.monash.fit2099.engine.Item;
 
 import java.util.List;
 
-public class EatAction extends Action {
+/**
+ * An action for actors to eat food
+ */
 
+public class EatAction extends Action {
+    /**
+     * Eating the food will restore 5 health points
+     * @param actor The actor performing the action.
+     * @param map The map the actor is on.
+     * @return String description of executed action
+     */
+    @Override
     public String execute(Actor actor, GameMap map){
         List<Item> inventory = actor.getInventory();
         for(Item item : inventory){
@@ -21,5 +31,11 @@ public class EatAction extends Action {
         return null;
     }
 
+    /**
+     * Action description
+     * @param actor The actor performing the action.
+     * @return String description of action
+     */
+    @Override
     public String menuDescription(Actor actor){return actor.toString() + " eats food";}
 }
