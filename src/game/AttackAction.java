@@ -4,6 +4,7 @@ import java.util.Random;
 
 import edu.monash.fit2099.engine.*;
 
+
 /**
  * Special Action for attacking other Actors.
  */
@@ -66,7 +67,14 @@ public class AttackAction extends Action {
 
 		target.hurt(damage);
 		if (!target.isConscious()) {
-			Item corpse = new PortableItem("dead " + target, '%');
+			Item corpse;
+			if (target.getClass().getName().equals("game.Zombie")){	// if it is a zombie, it cant rise, so make it a portable item
+				corpse = new PortableItem("dead " + target, '%');
+			}
+			else {
+				corpse = new Corpse(target+"", map); 	// Only Corpse() can rise
+			}
+
 			map.locationOf(target).addItem(corpse);
 			Actions dropActions = new Actions();
 			for (Item item : target.getInventory())

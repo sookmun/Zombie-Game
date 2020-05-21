@@ -9,8 +9,6 @@ import java.util.List;
  */
 public class Player extends Human {
 	private Menu menu = new Menu();
-	public Counter counter= new Counter();
-	private static List<Counter> listOfCorps;
 
 
 	/**
@@ -35,19 +33,14 @@ public class Player extends Human {
 				Action craft = new CraftAction();
 				actions.add(craft);
 			}
-			//if there is a food you can eat it
-			if (item.getDisplayChar()-'F'==0){
-				Action eat= new EatAction();
-				actions.add(eat);
-			}
 		}
+
+
+
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 
 		return menu.showMenu(this,actions,display) ;
 
 	}
-
-
-
 }
