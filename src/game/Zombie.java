@@ -1,5 +1,6 @@
 package game;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import edu.monash.fit2099.engine.*;
 
 import java.util.Random;
@@ -33,23 +34,23 @@ public class Zombie extends ZombieActor {
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		if (num_of_arms==2){
-			if (rand.nextBoolean()) {
-				return new IntrinsicWeapon(20, "bites");
-			}
-			else {
-				return new IntrinsicWeapon(10, "punches");
-			}
+		boolean bool;
+		if (num_of_arms==2){			// if both arms are present, 50% chance of doing either
+			bool = rand.nextBoolean();
 		}
-		else if (num_of_arms==1){
-			if (rand.nextInt(100)<75) {		// 75% of biting
-				return new IntrinsicWeapon(20, "bites");
-			}
-			else {
-				return new IntrinsicWeapon(10, "punches");
-			}
+		else if (num_of_arms==1){		// if one arm left, 75% chance of biting
+			bool = rand.nextInt(100)+1 <= 75;
 		}
-		return new IntrinsicWeapon(20, "bites");
+		else{
+			bool = true;	// no arms are present, can only bite
+		}
+
+		if (bool){		// true --> bites
+			return new IntrinsicWeapon(20, "bites");
+		}
+		else{		// false --> punches
+			return new IntrinsicWeapon(10, "punches");
+		}
 	}
 
 
