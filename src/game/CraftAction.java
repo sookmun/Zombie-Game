@@ -26,6 +26,7 @@ public class CraftAction extends Action {
                 return "Player Crafted a Zombie Mace";
             }
         }
+        //maybe raise exception?? check for craft action too
         return "Player cant craft because there is no limbs";
     }
 
