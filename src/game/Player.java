@@ -45,10 +45,6 @@ public class Player extends Human {
 		return menu.showMenu(this,actions,display) ;
 
 	}
-	public Counter getCounter(){
-
-		return counter;
-	}
 
 
 

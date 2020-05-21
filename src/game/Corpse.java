@@ -42,7 +42,12 @@ public class Corpse extends PortableItem {
             here.addActor(new Zombie(name));
         }
         else{
-            Location next = new Location(map, here.x(), here.y()+1);
+            Location next;
+            if (here.y()+1 <= map.getYRange().max()){
+                next = new Location(map, here.x(), here.y()+1);
+            } else{
+                next = new Location(map, here.x(), here.y()-1);
+            }
             next.addActor(new Zombie(name));
         }
         location.removeItem(location.getItems().get(location.getItems().size()-1)); // drop the last item in the list, which is the corpse
