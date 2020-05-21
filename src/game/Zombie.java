@@ -33,12 +33,23 @@ public class Zombie extends ZombieActor {
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		if (rand.nextBoolean()) {
-			return new IntrinsicWeapon(20, "bites");
+		if (num_of_arms==2){
+			if (rand.nextBoolean()) {
+				return new IntrinsicWeapon(20, "bites");
+			}
+			else {
+				return new IntrinsicWeapon(10, "punches");
+			}
 		}
-		else {
-			return new IntrinsicWeapon(10, "punches");
+		else if (num_of_arms==1){
+			if (rand.nextInt(100)<75) {		// 75% of biting
+				return new IntrinsicWeapon(20, "bites");
+			}
+			else {
+				return new IntrinsicWeapon(10, "punches");
+			}
 		}
+		return new IntrinsicWeapon(20, "bites");
 	}
 
 
@@ -54,6 +65,18 @@ public class Zombie extends ZombieActor {
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		// MODIFIED by LYY
+		if (rand.nextInt(100)+1 <= 10){
+			return new GroanAction();
+		}
+
+		for (Action action: actions){		// if there's a weapon on the floor, pick up the item
+			if (action.getClass().getName().equals("edu.monash.fit2099.engine.PickUpItemAction")){
+				if (num_of_arms>=1){
+					return action;
+				}
+			}
+		}
+
 		for (Behaviour behaviour : behaviours) {
 			if (num_of_legs==2){
 				Action action = behaviour.getAction(this, map);
