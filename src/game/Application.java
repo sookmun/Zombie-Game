@@ -3,11 +3,7 @@ package game;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.monash.fit2099.engine.Actor;
-import edu.monash.fit2099.engine.Display;
-import edu.monash.fit2099.engine.FancyGroundFactory;
-import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.World;
+import edu.monash.fit2099.engine.*;
 
 /**
  * The main class for the zombie apocalypse game.
@@ -77,6 +73,15 @@ public class Application {
 		gameMap.at(1, 10).addActor(new Zombie("Gaaaah"));
 		gameMap.at(62, 12).addActor(new Zombie("Aaargh"));
 		gameMap.at(1,1).addActor(new Zombie("Zombie_1"));	// add zombie
+		//testing
+		gameMap.at(25,20).addActor(new Farmer("farmer1")); //added farmer
+		gameMap.at(40,15).addActor(new Farmer("farmer2"));
+		gameMap.at(17,18).addActor(new Farmer("farmer3"));
+		Item crop = new Crop();
+		crop.removeCapability(CropCapability.Unripe);
+		crop.addCapability(CropCapability.Ripe);
+		//testing
+		gameMap.at(17,18).addItem(crop);
 		world.run();
 
 	}

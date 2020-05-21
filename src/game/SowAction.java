@@ -13,6 +13,7 @@ public class SowAction extends Action {
 
         Item crop=new Crop();
         map.locationOf(actor).addItem(crop);
+        map.locationOf(actor).getGround().removeCapability(DirtCapability.CROPSDIRT);
         return actor.toString() + "sowed the ground";
     }
 

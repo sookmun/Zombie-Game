@@ -6,8 +6,8 @@ public class Farmer extends Human {
             new FarmBehaviour(),
             new WanderBehaviour()};
 
-    public Farmer(String name, int hitpoints) {
-        super(name, 'F', hitpoints);
+    public Farmer(String name) {
+        super(name, 'f', 50);
     }
 
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display){
