@@ -90,6 +90,6 @@ public class Application {
 		gameMap.at(18,18).setGround(crop);
 		System.out.println(gameMap.at(18,18).getGround().hasCapability(CropCapability.Ripe));
 		world.run();
-		
+
 	}
 }
