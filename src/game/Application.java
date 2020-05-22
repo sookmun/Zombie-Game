@@ -67,20 +67,20 @@ public class Application {
 
 		// FIXME: Add more zombies!
 		gameMap.at(30, 20).addActor(new Zombie("Groan"));
-		gameMap.at(30,  18).addActor(new Zombie("Boo"));
-		gameMap.at(10,  4).addActor(new Zombie("Uuuurgh"));
+		gameMap.at(30, 18).addActor(new Zombie("Boo"));
+		gameMap.at(10, 4).addActor(new Zombie("Uuuurgh"));
 		gameMap.at(50, 18).addActor(new Zombie("Mortalis"));
 		gameMap.at(1, 10).addActor(new Zombie("Gaaaah"));
 		gameMap.at(62, 12).addActor(new Zombie("Aaargh"));
-		gameMap.at(1,1).addActor(new Zombie("Zombie1"));	// add zombie
+		gameMap.at(1, 1).addActor(new Zombie("Zombie1"));    // add zombie
 		gameMap.at(79, 0).addActor(new Zombie("Zombie2"));
 		gameMap.at(70, 6).addActor(new Zombie("Zombie3"));
 		gameMap.at(3, 23).addActor(new Zombie("Zombie4"));
 		//testing
-		gameMap.at(25,20).addActor(new Farmer("farmer1")); //added farmer
-		gameMap.at(40,15).addActor(new Farmer("farmer2"));
-		gameMap.at(17,18).addActor(new Farmer("farmer3"));
+		gameMap.at(25, 20).addActor(new Farmer("farmer1")); //added farmer
+		gameMap.at(40, 15).addActor(new Farmer("farmer2"));
+		gameMap.at(17, 18).addActor(new Farmer("farmer3"));
 		world.run();
-
+		
 	}
 }

@@ -21,7 +21,7 @@ public class Corpse extends PortableItem {
      * @param map: GameMap
      */
     public Corpse(String name, GameMap map) {
-        super("corpse", '%');
+        super(name + "'s corpse", '%');
         this.name = name;
         this.map = map;
     }
