@@ -48,10 +48,11 @@ public class Player extends Human {
 			}
 
 		}
-		HarvestAction harvest = new HarvestAction();
-		for(Location location : harvest.getLocation(this,map)){
-			if(location.getGround().hasCapability(CropCapability.Ripe)){
-				actions.add(harvest);
+		AroundLocation location =new AroundLocation(this,map);
+		for(Location locate : location.getLocation(this,map)){
+			if(locate.getGround().hasCapability(CropCapability.Ripe)){
+				actions.add(new HarvestAction());
+				break;
 			}
 
 		}

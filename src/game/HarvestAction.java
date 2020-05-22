@@ -23,7 +23,7 @@ public class HarvestAction extends Action {
         for(Location loca : location.getLocation(actor,map) ){
             if(loca.getGround().hasCapability(CropCapability.Ripe)){
                 loca.setGround(new Dirt());
-                if(actor instanceof Human) // if is a farmer drop to the ground
+                if(actor instanceof Farmer) // if is a farmer drop to the ground
                     loca.addItem(new Food());
                 else // if is a player add into inventory
                     actor.addItemToInventory(new Food());
@@ -32,19 +32,6 @@ public class HarvestAction extends Action {
 
         }
         return null;
-//        List<Item> groundItems= map.locationOf(actor).getItems();
-//        for (Item item : groundItems){
-//            if (item.hasCapability(CropCapability.Ripe)){
-//                map.locationOf(actor).removeItem(item);
-//                if(actor instanceof Human) // if is a farmer drop to the ground
-//                    map.locationOf(actor).addItem(new Food());
-//                else // if is a player add into inventory
-//                    actor.addItemToInventory(new Food());
-//                return actor.toString() + " harvest crop into food";
-//            }
-//        }
-//        return null;
-
     }
 
     @Override

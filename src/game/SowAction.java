@@ -26,8 +26,6 @@ public class SowAction extends Action {
                 loca.setGround(new Crop());
                 return actor.toString() + "sowed the ground";
             }
-
-
         }
 
 
@@ -39,22 +37,4 @@ public class SowAction extends Action {
     @Override
     public String menuDescription(Actor actor){return actor.toString() + " sow the ground"; }
 
-    public ArrayList<Location> getLocation(Actor actor, GameMap map){
-        int x = map.locationOf(actor).x();
-        int y = map.locationOf(actor).y();
-        ArrayList<Location> locations = new ArrayList<>();
-        if (map.getXRange().contains(x+1)){
-            locations.add(map.at(x+1,y));
-        }
-        if (map.getYRange().contains(y+1)){
-            locations.add(map.at(x,y+1));
-        }
-        if (map.getYRange().contains(y+1)){
-            locations.add(map.at(x,y-1));
-        }
-        if (map.getYRange().contains(y+1)){
-            locations.add(map.at(x-1,y));
-        }
-        return locations;
-    }
 }

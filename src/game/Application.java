@@ -47,10 +47,6 @@ public class Application {
 		
 		Actor player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(42, 15));
-		Ground crop1 = new Crop();
-		crop1.removeCapability(CropCapability.Unripe);
-		crop1.addCapability(CropCapability.Ripe);
-		gameMap.at(43,15).setGround(crop1);
 	    // Place some random humans
 		String[] humans = {"Carlton", "May", "Vicente", "Andrea", "Wendy",
 				"Elina", "Winter", "Clem", "Jacob", "Jaquelyn"};
@@ -66,8 +62,6 @@ public class Application {
 		
 		// place a simple weapon
 		gameMap.at(74, 20).addItem(new Plank());
-		gameMap.at(42,15).addItem(new Plank());		// delete later, used for testing corpse
-
 
 		// FIXME: Add more zombies!
 		gameMap.at(30, 20).addActor(new Zombie("Groan"));
@@ -80,15 +74,10 @@ public class Application {
 		gameMap.at(79, 0).addActor(new Zombie("Zombie2"));
 		gameMap.at(70, 6).addActor(new Zombie("Zombie3"));
 		gameMap.at(3, 23).addActor(new Zombie("Zombie4"));
-		//testing
+
 		gameMap.at(25, 20).addActor(new Farmer("farmer1")); //added farmer
 		gameMap.at(40, 15).addActor(new Farmer("farmer2"));
 		gameMap.at(17, 18).addActor(new Farmer("farmer3"));
-		Ground crop = new Crop();
-		crop.removeCapability(CropCapability.Unripe);
-		crop.addCapability(CropCapability.Ripe);
-		gameMap.at(18,18).setGround(crop);
-		System.out.println(gameMap.at(18,18).getGround().hasCapability(CropCapability.Ripe));
 		world.run();
 
 	}
