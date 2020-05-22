@@ -36,7 +36,7 @@ public class FarmBehaviour implements Behaviour {
 
         }
         if (groundItems.size()==0) { // if there is no items on it sow but you can still put items on a crop
-            if (rand.nextDouble() < 0.33) {
+            if (rand.nextDouble() <= 0.33) {
                 return new SowAction();
             }
         }

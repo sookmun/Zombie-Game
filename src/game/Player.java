@@ -32,21 +32,22 @@ public class Player extends Human {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		//added by tsm remove if interfere with application
 		//always checks if there are any zombie limbs in the inventory
 		List<Item> inventory= this.getInventory();
-		for(Item item: inventory){
-			if(item.getDisplayChar()-'a' ==0 || item.getDisplayChar()-'l'==0){
-				//if there is zombie limbs then add craft action
-				Action craft = new CraftAction();
-				actions.add(craft);
+
+			for (Item item : inventory) {
+				if (item.getDisplayChar() - 'a' == 0 || item.getDisplayChar() - 'l' == 0) {
+					//if there is zombie limbs then add craft action
+					Action craft = new CraftAction();
+					actions.add(craft);
+				}
+				//if there is food add eat action
+				if (item.getDisplayChar() - 'F' == 0) {
+					Action eat = new EatAction();
+					actions.add(eat);
+				}
+
 			}
-			//if there is food add eat action
-			if (item.getDisplayChar()-'F'==0){
-				Action eat= new EatAction();
-				actions.add(eat);
-			}
-		}
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 

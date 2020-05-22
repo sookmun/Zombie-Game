@@ -77,7 +77,7 @@ public class Zombie extends ZombieActor {
 		}
 
 		for (Action action: actions){		// if there's a weapon on the floor, pick up the item
-			if (action.getClass().getName().equals("edu.monash.fit2099.engine.PickUpItemAction")){
+			if (action instanceof PickUpItemAction){
 				if (num_of_arms>=1){
 					return action;
 				}
@@ -92,13 +92,13 @@ public class Zombie extends ZombieActor {
 			}
 			else if (num_of_legs==1){
 				Action action = behaviour.getAction(this, map);
-				if(behaviour.getClass().getName().equals("game.AttackBehaviour")){
+				if(behaviour instanceof AttackAction){
 					if (action != null) {
 						return action;
 					}
 				}
-				else if (behaviour.getClass().getName().equals("game.WanderBehaviour") || (behaviour.getClass().getName().equals("game.HuntBehaviour"))) {	// if current action is to move
-					if (lastAction.getClass().getName().equals("edu.monash.fit2099.engine.DoNothingAction")) {
+				else if (behaviour instanceof WanderBehaviour || behaviour instanceof HuntBehaviour) {	// if current action is to move
+					if (lastAction instanceof DoNothingAction) {
 						if (action != null){
 							return action;
 						}
@@ -107,7 +107,7 @@ public class Zombie extends ZombieActor {
 			}
 			else if (num_of_legs==0){
 				Action action = behaviour.getAction(this, map);
-				if (behaviour.getClass().getName().equals("game.WanderBehaviour") || (behaviour.getClass().getName().equals("game.HuntBehaviour"))) {    // if current action is to move
+				if (behaviour instanceof WanderBehaviour || behaviour instanceof HuntBehaviour) {    // if current action is to move
 					System.out.println(name + " can't move as it has no more legs");
 					return new DoNothingAction();    // zombie can't move at all
 				}

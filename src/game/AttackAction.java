@@ -76,7 +76,7 @@ public class AttackAction extends Action {
 		target.hurt(damage);
 		if (!target.isConscious()) {
 			Item corpse;
-			if (target.getClass().getName().equals("game.Zombie")){	// if it is a zombie, it cant rise, so make it a portable item
+			if (target.hasCapability(ZombieCapability.UNDEAD)){	// if it is a zombie, it cant rise, so make it a portable item
 				corpse = new PortableItem("dead " + target, '%');
 			}
 			else {

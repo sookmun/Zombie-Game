@@ -12,7 +12,7 @@ import java.util.List;
  * Author:Tan Sook Mun
  */
 
-public class CraftAction extends Action {
+public class CraftAction extends Action{
     /**
      * Checks if there is zombie limbs and craft it
      * @param actor The actor performing the action.
@@ -20,7 +20,7 @@ public class CraftAction extends Action {
      * @return a string description of what had been done
      */
     @Override
-    public String execute(Actor actor, GameMap map) {
+    public String execute(Actor actor, GameMap map){
         List<Item> inventory = actor.getInventory();
         for (Item item : inventory) {
             //if there is a zombie arm inside
@@ -36,8 +36,7 @@ public class CraftAction extends Action {
                 return "Player Crafted a Zombie Mace";
             }
         }
-
-        return "Player cant craft because there is no limb";
+        return "There is no Limbs to craft";
     }
     @Override
     public String menuDescription (Actor actor){

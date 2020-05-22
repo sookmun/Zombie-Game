@@ -17,6 +17,7 @@ public class EatAction extends Action {
      * @param actor The actor performing the action.
      * @param map The map the actor is on.
      * @return String description of executed action
+     * @author Tan Sook Mun
      */
     @Override
     public String execute(Actor actor, GameMap map){
