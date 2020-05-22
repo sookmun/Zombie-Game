@@ -119,4 +119,33 @@ public class Zombie extends ZombieActor {
 		}
 		return new DoNothingAction();
 	}
+
+	public int getNum_of_arms() {
+		return num_of_arms;
+	}
+
+	public void setNum_of_arms(int num_of_arms) throws Exception {
+		if (num_of_arms>=0 && num_of_arms<=2){
+			this.num_of_arms = num_of_arms;
+		}
+		else {
+			throw new Exception("Invalid Number of Zombie Arms");
+		}
+
+	}
+
+	public int getNum_of_legs() {
+		return num_of_legs;
+	}
+
+	public void setNum_of_legs(int num_of_legs) throws Exception {
+		if (num_of_legs >= 0 && num_of_legs<=2){
+			this.num_of_legs = num_of_legs;
+		}
+		else{
+			throw new Exception("Invalid Number of Zombie Legs");
+		}
+	}
+
+
 }

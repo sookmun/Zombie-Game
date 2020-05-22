@@ -70,7 +70,12 @@ public class AttackAction extends Action {
 
 		// if Zombie is attacked
 		if (target.hasCapability(ZombieCapability.UNDEAD)){
-			System.out.println(damaged_zombie((Zombie) target, map));
+			try{
+				System.out.println(damaged_zombie((Zombie) target, map));
+			} catch (Exception e){
+				e.printStackTrace(System.out);
+			}
+
 		}
 
 		target.hurt(damage);
@@ -108,23 +113,28 @@ public class AttackAction extends Action {
 	 * @return a description stating if the Zombie loses its linb(s)
 	 */
 	private String damaged_zombie(Zombie target, GameMap map) {
-		if (getBooleanWithProbability(90) && (target.num_of_arms >= 1 || target.num_of_legs >= 1)) {    // 50% of losing 1 or 2 limbs if and only if the zombie still has limbs
+		if (getBooleanWithProbability(90) && (target.getNum_of_arms() >= 1 || target.getNum_of_legs() >= 1)) {    // 50% of losing 1 or 2 limbs if and only if the zombie still has limbs
 			Random random = new Random();    // random generator to decide if the zombie loses 1 or 2 limbs
 			int num_loseLimbs = random.nextInt(2) + 1;
 
 			boolean arms = random.nextBoolean();    // if legs, but no legs left but still has arms, then lose arms
-			if (!arms && target.num_of_legs == 0) {
-				if (target.num_of_arms >= 1) {
+			if (!arms && target.getNum_of_legs() == 0) {
+				if (target.getNum_of_arms() >= 1) {
 					arms = true;
 				}
 			}
 
-			int ori_arm = target.num_of_arms;    // current number of arms
-			int ori_leg = target.num_of_legs;    // current number of legs
+			int ori_arm = target.getNum_of_arms();    // current number of arms
+			int ori_leg = target.getNum_of_legs();    // current number of legs
 
-			if (arms && target.num_of_arms >= 1) {    // Lose arm(s)
-				target.num_of_arms -= num_loseLimbs;
-				if (target.num_of_arms == 1) {        // if lose one arm and one arm is left, 50% chance of dropping any weapon
+			if (arms && target.getNum_of_arms() >= 1) {    // Lose arm(s)
+				int temp = target.getNum_of_arms()-num_loseLimbs;
+				if (temp == 1) {        // if lose one arm and one arm is left, 50% chance of dropping any weapon
+					try{
+						target.setNum_of_arms(temp);
+					} catch (Exception e){
+						e.printStackTrace(System.out);
+					}
 					if (rand.nextBoolean()) {    // if true, 50% chance of dropping any weapon it is holding
 						Actions dropActions = new Actions();
 						for (Item item : target.getInventory())
@@ -135,8 +145,13 @@ public class AttackAction extends Action {
 					map.locationOf(target).addItem(new ZombieArm());        // Zombie's arm dropped to the ground
 					return (target + " loses one arm and has one arm left");
 				}
-				if (target.num_of_arms <= 0) {    // if loses both arm, drops weapon. A negative number if zombie has one arm left and random generator outcome == 2
-					target.num_of_arms = 0;
+				if (temp <= 0) {    // if loses both arm, drops weapon. A negative number if zombie has one arm left and random generator outcome == 2
+					temp = 0;
+					try{
+						target.setNum_of_arms(temp);
+					} catch (Exception e){
+						e.printStackTrace(System.out);
+					}
 					Actions dropActions = new Actions();
 					for (Item item : target.getInventory())
 						dropActions.add(item.getDropAction());
@@ -151,14 +166,24 @@ public class AttackAction extends Action {
 						return (target + " loses both arm and has no arms left");
 					}
 				}
-			} else if (target.num_of_legs >= 1) {        // Lose leg(s)
-				target.num_of_legs -= num_loseLimbs;
-				if (target.num_of_legs == 1) {        // if loses 1 leg, movement speed is halved
+			} else if (target.getNum_of_legs() >= 1) {        // Lose leg(s)
+				int temp = target.getNum_of_legs() - num_loseLimbs;
+				if (temp == 1) {        // if loses 1 leg, movement speed is halved
+					try{
+						target.setNum_of_legs(temp);
+					} catch (Exception e){
+						e.printStackTrace(System.out);
+					}
 					map.locationOf(target).addItem(new ZombieLeg());
 					return (target + " loses one leg and has one leg left");
 				}
-				if (target.num_of_legs <= 0) {    // if loses both legs, cannot move at all
-					target.num_of_legs = 0;
+				if (temp <= 0) {    // if loses both legs, cannot move at all
+					temp = 0;
+					try{
+						target.setNum_of_legs(temp);
+					} catch (Exception e){
+						e.printStackTrace(System.out);
+					}
 					map.locationOf(target).addItem(new ZombieLeg());
 					if (ori_leg == 1) {    // if zombie originally has 1 leg and loses another leg
 						return (target + " loses one leg and has no leg left");
@@ -169,7 +194,7 @@ public class AttackAction extends Action {
 				}
 			}
 		}
-		if (target.num_of_arms == 0 && target.num_of_legs == 0) {
+		if (target.getNum_of_arms() == 0 && target.getNum_of_legs() == 0) {
 			return (target + " has no more limbs to lose");
 		} else {
 			return (target + " did not lose its arm(s) or limb(s)");
