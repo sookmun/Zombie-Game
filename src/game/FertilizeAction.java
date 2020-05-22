@@ -18,14 +18,21 @@ public class FertilizeAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        List<Item> groundItem = map.locationOf(actor).getItems();
-        for (Item item : groundItem) {
-            if (item instanceof Crop) {
-                ((Crop) item).fertilize();
+        if(map.locationOf(actor).getGround().hasCapability(CropCapability.Unripe)){
+            if(map.locationOf(actor).getGround() instanceof Crop){
+                ((Crop) map.locationOf(actor).getGround()).fertilize();
                 return actor.toString() + " fertilized crops";
             }
         }
-        return "No Crops to fertilized";
+        return null;
+//        List<Item> groundItem = map.locationOf(actor).getItems();
+//        for (Item item : groundItem) {
+//            if (item instanceof Crop) {
+//                ((Crop) item).fertilize();
+//                return actor.toString() + " fertilized crops";
+//            }
+//        }
+//        return "No Crops to fertilized";
     }
 
     /**
@@ -37,4 +44,6 @@ public class FertilizeAction extends Action {
     public String menuDescription(Actor actor){
         return actor.toString() + "fertilize the crop";
     }
+
+
 }

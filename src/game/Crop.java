@@ -1,16 +1,17 @@
 package game;
 
 import edu.monash.fit2099.engine.Actor;
+import edu.monash.fit2099.engine.Ground;
 import edu.monash.fit2099.engine.Item;
 import edu.monash.fit2099.engine.Location;
 
 /**
  * is an item that can be sown, harvest and turn into food. During initialisation it has Unripe capability
  */
-public class Crop extends Item {
+public class Crop extends Ground {
     private int count;
     public Crop(){
-        super("Crop",'C',false);
+        super('C');
         addCapability(CropCapability.Unripe);
     }
 
@@ -29,11 +30,18 @@ public class Crop extends Item {
     }
 
     @Override
-    public void tick(Location currentLocation, Actor actor) {
-        super.tick(currentLocation, actor);
-
+    public boolean canActorEnter(Actor actor) {
+        return true;
     }
 
+    /**
+     * actor cant throw objects here
+     * @return true
+     */
+    @Override
+    public boolean blocksThrownObjects() {
+        return true;
+    }
     /**
      * A function to add the counter when farmer fertilize
      */

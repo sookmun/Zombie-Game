@@ -1,10 +1,8 @@
 package game;
 
-import edu.monash.fit2099.engine.Action;
-import edu.monash.fit2099.engine.Actor;
-import edu.monash.fit2099.engine.GameMap;
-import edu.monash.fit2099.engine.Item;
+import edu.monash.fit2099.engine.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +10,7 @@ import java.util.List;
  * Author: Tan Sook Mun
  */
 public class HarvestAction extends Action {
+    private int[][] values ={{1,-1},{1,0},{1+1},{0,-1},{0,0},{0,1},{-1,1},{-1,0},{-1,-1}};
     /**
      * Get the all items on the ground and if there is a crop with Ripe capability it will harvest and drop food
      * @param actor The actor performing the action.
@@ -20,18 +19,36 @@ public class HarvestAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map){
-        List<Item> groundItems= map.locationOf(actor).getItems();
-        for (Item item : groundItems){
-            if (item.hasCapability(CropCapability.Ripe)){
-                map.locationOf(actor).removeItem(item);
-                map.locationOf(actor).addItem(new Food());
+        AroundLocation location = new AroundLocation(actor,map);
+        for(Location loca : location.getLocation(actor,map) ){
+            if(loca.getGround().hasCapability(CropCapability.Ripe)){
+                loca.setGround(new Dirt());
+                if(actor instanceof Human) // if is a farmer drop to the ground
+                    loca.addItem(new Food());
+                else // if is a player add into inventory
+                    actor.addItemToInventory(new Food());
                 return actor.toString() + " harvest crop into food";
             }
+
         }
         return null;
+//        List<Item> groundItems= map.locationOf(actor).getItems();
+//        for (Item item : groundItems){
+//            if (item.hasCapability(CropCapability.Ripe)){
+//                map.locationOf(actor).removeItem(item);
+//                if(actor instanceof Human) // if is a farmer drop to the ground
+//                    map.locationOf(actor).addItem(new Food());
+//                else // if is a player add into inventory
+//                    actor.addItemToInventory(new Food());
+//                return actor.toString() + " harvest crop into food";
+//            }
+//        }
+//        return null;
 
     }
 
     @Override
     public String menuDescription(Actor actor){return actor.toString() + " harvest the crop";}
+
+
 }
