@@ -35,9 +35,10 @@ public class FarmBehaviour implements Behaviour {
             if (locate.getGround().hasCapability(CropCapability.Ripe)) {
                 return new HarvestAction();
             }
-            if (rand.nextDouble() <= 0.33) {
-                return new SowAction();
-            }
+
+        }
+        if (rand.nextDouble() <= 0.33) {
+            return new SowAction();
         }
 
 
