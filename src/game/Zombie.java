@@ -14,8 +14,8 @@ import java.util.Random;
  *
  */
 public class Zombie extends ZombieActor {
-	protected int num_of_arms;
-	protected int num_of_legs;
+	private int num_of_arms;
+	private int num_of_legs;
 
 	protected Random rand = new Random();
 
@@ -120,10 +120,19 @@ public class Zombie extends ZombieActor {
 		return new DoNothingAction();
 	}
 
+	/**
+	 * Getter for number of arms
+	 * @return the current number of arms of Zombie
+	 */
 	public int getNum_of_arms() {
 		return num_of_arms;
 	}
 
+	/**
+	 * Setter for number of arms
+	 * @param num_of_arms: new number of arms
+	 * @throws Exception when the number of arms is not in between 0 and 2
+	 */
 	public void setNum_of_arms(int num_of_arms) throws Exception {
 		if (num_of_arms>=0 && num_of_arms<=2){
 			this.num_of_arms = num_of_arms;
@@ -134,10 +143,19 @@ public class Zombie extends ZombieActor {
 
 	}
 
+	/**
+	 * Getter for number of legs
+	 * @return the current number of legs of Zombie
+	 */
 	public int getNum_of_legs() {
 		return num_of_legs;
 	}
 
+	/**
+	 * Setter for number of arms
+	 * @param num_of_legs: new number of legs
+	 * @throws Exception when the number of legs is not in between 0 and 2
+	 */
 	public void setNum_of_legs(int num_of_legs) throws Exception {
 		if (num_of_legs >= 0 && num_of_legs<=2){
 			this.num_of_legs = num_of_legs;
@@ -146,6 +164,4 @@ public class Zombie extends ZombieActor {
 			throw new Exception("Invalid Number of Zombie Legs");
 		}
 	}
-
-
 }
