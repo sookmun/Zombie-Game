@@ -81,6 +81,6 @@ public class Application {
 		gameMap.at(40, 15).addActor(new Farmer("farmer2"));
 		gameMap.at(17, 18).addActor(new Farmer("farmer3"));
 		world.run();
-		
+
 	}
 }
