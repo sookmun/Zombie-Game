@@ -27,5 +27,5 @@ public class SowAction extends Action {
     }
 
     @Override
-    public String menuDescription(Actor actor){return actor.toString() + "sow the ground"; }
+    public String menuDescription(Actor actor){return actor.toString() + " sow the ground"; }
 }
