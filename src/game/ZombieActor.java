@@ -13,7 +13,6 @@ public abstract class ZombieActor extends Actor {
 	
 	public ZombieActor(String name, char displayChar, int hitPoints, ZombieCapability team) {
 		super(name, displayChar, hitPoints);
-		
 		addCapability(team);
 	}
 	

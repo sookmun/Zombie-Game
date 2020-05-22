@@ -22,7 +22,7 @@ public class FertilizeAction extends Action {
         for (Item item : groundItem) {
             if (item instanceof Crop) {
                 ((Crop) item).fertilize();
-                return actor.toString() + "fertilized crops";
+                return actor.toString() + " fertilized crops";
             }
         }
         return "No Crops to fertilized";
