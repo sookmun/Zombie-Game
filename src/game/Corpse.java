@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 
+
 /**
  * Class representing Corpse that is able to rise as a Zombie
  */
