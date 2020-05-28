@@ -5,14 +5,18 @@ import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Location;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class AroundLocation {
     private Actor actor;
     private GameMap map;
+
     public AroundLocation(Actor actor, GameMap map){
         this.actor=actor;
         this.map=map;
     }
+
     public ArrayList<Location> getLocation(Actor actor, GameMap map){
         int x = map.locationOf(actor).x();
         int y = map.locationOf(actor).y();
