@@ -22,6 +22,9 @@ public class SowAction extends Action {
     public String execute(Actor actor, GameMap map){
         AroundLocation location = new AroundLocation(actor,map);
         for(Location loca : location.getLocation(actor,map) ){
+            if (loca == map.locationOf(actor)){ //dont sow on the ground it is standing on
+                break;
+            }
             if(loca.getGround().getDisplayChar()-'.'==0){
                 loca.setGround(new Crop());
                 return actor.toString() + "sowed the ground";

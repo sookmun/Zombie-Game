@@ -44,6 +44,19 @@ public class Application {
 		"................................................................................");
 		GameMap gameMap = new GameMap(groundFactory, map );
 		world.addGameMap(gameMap);
+
+		List<String> townMap = Arrays.asList(
+				".............",
+				".............",
+				".............",
+				".............",
+				".............",
+				".............");
+		GameMap town = new GameMap(groundFactory, townMap);
+		world.addGameMap(town);
+		vehicle vehicle = new vehicle();
+		vehicle.addAction(new MoveActorAction(town.at(7, 2), "go to town"));
+		gameMap.at(65,12).addItem(vehicle);
 		
 		Actor player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(42, 15));
