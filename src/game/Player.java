@@ -56,10 +56,7 @@ public class Player extends Human {
 			}
 
 		}
-
-
-
-
+		actions.add( new EndGame());
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 

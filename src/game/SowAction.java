@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class SowAction extends Action {
     private Random rand = new Random();
-    private int[][] values ={{1,-1},{1,0},{1+1},{0,-1},{0,1},{-1,1},{-1,0},{-1,-1}};
+
     /**
      * add a new item, Crop on the ground
      * @param actor The actor performing the action.

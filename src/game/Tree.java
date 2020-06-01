@@ -13,7 +13,7 @@ public class Tree extends Ground {
 	private int age = 0;
 
 	public Tree() {
-		super('+');
+		super('o');
 	}
 
 	@Override

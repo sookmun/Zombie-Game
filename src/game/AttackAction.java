@@ -19,6 +19,8 @@ public class AttackAction extends Action {
 	 */
 	protected Random rand = new Random();
 
+	protected ActorLocations actorLocations ;
+
 	/**
 	 * Constructor.
 	 * 
@@ -88,15 +90,21 @@ public class AttackAction extends Action {
 				corpse = new Corpse(target+"", map); 	// Only Corpse() can rise
 			}
 
+
 			map.locationOf(target).addItem(corpse);
 			Actions dropActions = new Actions();
 			for (Item item : target.getInventory())
 				dropActions.add(item.getDropAction());
 			for (Action drop : dropActions)		
 				drop.execute(target, map);
-			map.removeActor(target);	
-			
+			map.removeActor(target);
 			result += System.lineSeparator() + target + " is killed.";
+
+		}
+		EndGame end= new EndGame();
+		String ret =end.checkAlive(map);
+		if (ret !=null){
+			result += ret;
 		}
 		return result;
 	}

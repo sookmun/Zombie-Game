@@ -2,6 +2,7 @@ package edu.monash.fit2099.demo.mars;
 
 import edu.monash.fit2099.engine.*;
 import game.FollowBehaviour;
+import game.Zombie;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +39,6 @@ public class Application {
         MartianItem rocket = new MartianItem("Rocket", '^', false);
         rocket.addAction(new MoveActorAction(mars.at(7, 2), "to Mars!"));
         gameMap.at(1, 1).addItem(rocket);
-
         Item spaceSuit = new MartianItem("space suit", '[', true);
         spaceSuit.addCapability(DemoCapabilities.SPACETRAVELLER);
         gameMap.at(0, 1).addItem(spaceSuit);
