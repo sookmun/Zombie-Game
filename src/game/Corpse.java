@@ -41,7 +41,7 @@ public class Corpse extends PortableItem {
         count+=1;
         this.location=currentLocation;
         this.actor = actor;
-        System.out.println(" tick actor: " + count);
+//        System.out.println(" tick actor: " + count);
     }
 
     /**
@@ -54,7 +54,7 @@ public class Corpse extends PortableItem {
         count+=1;
         this.location=currentLocation;
         this.actor = null;
-        System.out.println(" tick: " + count);
+//        System.out.println(" tick: " + count);
         if (count>=10){
             zombie_rise(map);
 

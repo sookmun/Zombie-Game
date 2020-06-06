@@ -44,6 +44,7 @@ public class Application {
 		"..........................................................................oo....",
 		"................................................................................");
 		GameMap gameMap = new GameMap(groundFactory, map );
+		System.out.println(gameMap);
 		world.addGameMap(gameMap);
 
 		List<String> townMap = Arrays.asList(
@@ -73,7 +74,7 @@ public class Application {
 		vehicle vehicle = new vehicle();
 		vehicle.addAction(new MoveActorAction(town.at(45,12), "go to town"));
 		gameMap.at(65,12).addItem(vehicle);
-//		gameMap.at(42,15).addItem(vehicle); // put near player easy for testing
+		gameMap.at(42,15).addItem(vehicle); // put near player easy for testing
 
 		vehicle vehicletoForest = new vehicle();
 		town.at(45,12).addItem(vehicletoForest);
