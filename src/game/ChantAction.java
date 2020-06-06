@@ -16,7 +16,8 @@ public class ChantAction extends Action {
             int x = new Random().nextInt(map.getXRange().max());
             int y = new Random().nextInt(map.getYRange().max());
             Location location = new Location(map, x, y);
-            if (!location.containsAnActor()) {
+            if (!map.isAnActorAt(location)) {
+//                map.addActor(new_zombie, location);
                 location.addActor(new_zombie);
                 new_zombie_count += 1;
 //                System.out.println("zombie " + new_zombie_count + " is created at " + location.x() + " " + location.y() );
@@ -27,7 +28,7 @@ public class ChantAction extends Action {
 
     @Override
     public String menuDescription(Actor actor) {
-        return null;
+        return actor + " chanted and 5 new zombies are created";
     }
 }
 

@@ -13,6 +13,6 @@ public class VanishAction extends Action {
 
     @Override
     public String menuDescription(Actor actor) {
-        return null;
+        return actor + " vanished";
     }
 }
