@@ -18,9 +18,7 @@ public class ChantAction extends Action {
             Location location = new Location(map, x, y);
             if (!map.isAnActorAt(location)) {
                 map.at(location.x(), location.y()).addActor(new_zombie);
-//                location.addActor(new_zombie);
                 new_zombie_count += 1;
-//                System.out.println("zombie " + new_zombie_count + " is created at " + location.x() + " " + location.y() );
             }
         }
         return (actor + " chanted and 5 new zombies are created");

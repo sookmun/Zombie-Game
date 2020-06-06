@@ -50,10 +50,8 @@ public class SubWorld extends World {
                         if (new Random().nextInt(100) + 1 <= 70){
                             Location location = new Location(gameMap, 0, 0);
                             if (!location.containsAnActor()){
-//                                location.addActor(new MamboMarie());
-//                                gameMap.at(0,0).addActor(new MamboMarie());
-                                gameMap.addActor(new MamboMarie(), location);
-                                System.out.println("MamboMarie is added ");
+                                gameMap.at(0,0).addActor(new MamboMarie());
+                                System.out.println("Mambo Marie is added ");
                             }
                         }
                 }

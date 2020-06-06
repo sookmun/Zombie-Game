@@ -85,7 +85,8 @@ public class Corpse extends PortableItem {
 
     public void zombie_rise(GameMap map) {
         if (location.getActor() == null) {
-            location.addActor(new Zombie(name));
+            map.at(location.x(), location.y()).addActor(new Zombie(name));
+//            location.addActor(new Zombie(name));
             location.removeItem(location.getItems().get(location.getItems().size()-1)); // drop the last item in the list, which is the corpse
             System.out.println(name + "'s corpse rise as a zombie");
         }
