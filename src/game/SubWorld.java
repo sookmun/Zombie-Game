@@ -24,7 +24,7 @@ public class SubWorld extends World {
             lastActionMap.put(actor, new DoNothingAction());
         }
 
-        boolean mambo = false;  // mambo is false, means Mambo Marie does not exist in the map
+//        boolean mambo = false;  // mambo is false, means Mambo Marie does not exist in the map
 
 
         // This loop is basically the whole game
@@ -32,14 +32,14 @@ public class SubWorld extends World {
             GameMap playersMap = actorLocations.locationOf(player).map();
             playersMap.draw(display);
 
-//            boolean mambo = false;  // mambo is false, means Mambo Marie does not exist in the map
+            boolean mambo = false;  // mambo is false, means Mambo Marie does not exist in the map
 
             // Process all the actors.
             for (Actor actor : actorLocations) {
                 if (actor instanceof MamboMarie){
                     mambo = true;   // change mambo into true when Mambo Marie exist in the map
                 }
-                if (stillRunning())
+                if (stillRunning())//maybe can change here for end game
                     processActorTurn(actor);
             }
 
