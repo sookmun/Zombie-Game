@@ -41,7 +41,7 @@ public class Corpse extends PortableItem {
         count+=1;
         this.location=currentLocation;
         this.actor = actor;
-        System.out.println(" tick actor: " + count);
+//        System.out.println(" tick actor: " + count);
     }
 
     /**
@@ -54,7 +54,7 @@ public class Corpse extends PortableItem {
         count+=1;
         this.location=currentLocation;
         this.actor = null;
-        System.out.println(" tick: " + count);
+//        System.out.println(" tick: " + count);
         if (count>=10){
             zombie_rise(map);
 
@@ -85,7 +85,8 @@ public class Corpse extends PortableItem {
 
     public void zombie_rise(GameMap map) {
         if (location.getActor() == null) {
-            location.addActor(new Zombie(name));
+            map.at(location.x(), location.y()).addActor(new Zombie(name));
+//            location.addActor(new Zombie(name));
             location.removeItem(location.getItems().get(location.getItems().size()-1)); // drop the last item in the list, which is the corpse
             System.out.println(name + "'s corpse rise as a zombie");
         }

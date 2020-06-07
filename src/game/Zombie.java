@@ -108,7 +108,7 @@ public class Zombie extends ZombieActor {
 			else if (num_of_legs==0){
 				Action action = behaviour.getAction(this, map);
 				if (behaviour instanceof WanderBehaviour || behaviour instanceof HuntBehaviour) {    // if current action is to move
-					System.out.println(name + " can't move as it has no more legs");
+//					System.out.println(name + " can't move as it has no more legs");
 					return new DoNothingAction();    // zombie can't move at all
 				}
 				else{

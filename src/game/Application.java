@@ -44,6 +44,7 @@ public class Application {
 		"..........................................................................oo....",
 		"................................................................................");
 		GameMap gameMap = new GameMap(groundFactory, map );
+		System.out.println(gameMap);
 		world.addGameMap(gameMap);
 
 		List<String> townMap = Arrays.asList(

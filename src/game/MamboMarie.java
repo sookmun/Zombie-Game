@@ -5,7 +5,6 @@ import edu.monash.fit2099.engine.*;
 import java.util.Random;
 
 public class MamboMarie extends ZombieActor {
-//    private Behaviour behaviour = new WanderBehaviour();
     protected int create_zombie_count = 0;
     protected  int vanish_count = 0;
     protected Random rand = new Random();
@@ -23,7 +22,6 @@ public class MamboMarie extends ZombieActor {
     @Override
     public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
         tick();
-        System.out.println(create_zombie_count);
         if (vanish_count == 30){
             return new VanishAction();
         }

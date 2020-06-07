@@ -24,7 +24,9 @@ public class SubWorld extends World {
             lastActionMap.put(actor, new DoNothingAction());
         }
 
+
 //        boolean mambo = false;  // mambo is false, means Mambo Marie does not exist in the map
+
 
 
         // This loop is basically the whole game
@@ -47,15 +49,19 @@ public class SubWorld extends World {
             for (GameMap gameMap : gameMaps) {
                 gameMap.tick();
 
-                if (!mambo){
-                    if (new Random().nextInt(100) + 1 <= 70){
-                        Location location = new Location(gameMap, 0, 0);
-                        if (!location.containsAnActor()){
-                            location.addActor(new MamboMarie());
-//                            gameMap.addActor(new MamboMarie(), location);
-                            System.out.println("MamboMarie is added ");
+                if (gameMap.toString().equals("edu.monash.fit2099.engine.GameMap@2503dbd3")){
+                    if (!mambo){
+                        if (new Random().nextInt(100) + 1 <= 70){
+                            Location location = new Location(gameMap, 0, 0);
+                            if (!location.containsAnActor()){
+                                gameMap.at(0,0).addActor(new MamboMarie());
+                                System.out.println("Mambo Marie is added ");
+                            }
                         }
-                    }
+                }
+
+
+
                 }
             }
 
