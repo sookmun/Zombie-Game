@@ -11,6 +11,7 @@ import java.util.List;
 public class Player extends Human {
 	private Menu menu = new Menu();
 	private int[][] values ={{1,-1},{1,0},{1+1},{0,-1},{0,0},{0,1},{-1,1},{-1,0},{-1,-1}};
+	private WeaponItem rangedweapon;
 
 
 	/**
@@ -46,6 +47,9 @@ public class Player extends Human {
 			if (item.getDisplayChar() - 'F' == 0) {
 				actions.add(new EatAction());
 			}
+			if (item.getDisplayChar() - 'S' == 0){
+				actions.add(new Shoot(item));
+			}
 
 		}
 		AroundLocation location =new AroundLocation(this,map);
@@ -63,6 +67,8 @@ public class Player extends Human {
 		return menu.showMenu(this,actions,display);
 
 	}
+
+
 
 
 }

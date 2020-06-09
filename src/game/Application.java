@@ -71,19 +71,24 @@ public class Application {
 				"................................................................................");
 		GameMap town = new GameMap(groundFactory, townMap);
 		world.addGameMap(town);
-		vehicle vehicle = new vehicle();
+		Vehicle vehicle = new Vehicle();
 		vehicle.addAction(new MoveActorAction(town.at(45,12), "go to town"));
 		gameMap.at(65,12).addItem(vehicle);
 		gameMap.at(42,15).addItem(vehicle); // put near player easy for testing
 
-		vehicle vehicletoForest = new vehicle();
+		Vehicle vehicletoForest = new Vehicle();
 		town.at(45,12).addItem(vehicletoForest);
 		vehicletoForest.addAction(new MoveActorAction(gameMap.at(45,12), "go to forest"));
-		town.at(20,15).addItem(new Shotgun());
+		town.at(44,12).addItem(new Shotgun());
 		town.at(35,13).addItem(new SniperRifle());
+		town.at(36,14).addItem(new SniperRifleAmmunition());
+		town.at(45,12).addItem(new ShotgunAmmunition());
 		town.at(4,2).addActor(new Zombie("Zombie Guard1"));
 		town.at(10,6).addActor(new Zombie("Zombie Guard2"));
 		town.at(14,2).addActor(new Zombie("Zombie Guard3"));
+		town.at(1,10).addActor(new Human("Rick"));
+		town.at(2,10).addActor(new Human("dsdddddddddddddddd"));
+		town.at(3,10).addActor(new Human("blaaaaaaaaaaaaaaaa"));
 
 		Actor player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(42, 15));
