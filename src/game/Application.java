@@ -93,6 +93,9 @@ public class Application {
 		Actor player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(42, 15));
 		gameMap.at(43,15).addItem(new ZombieMace());
+//		gameMap.at(42, 16).addItem(new Food());
+		gameMap.at(42, 17).addActor(new Human("sample"));
+		gameMap.at(42, 17).addItem(new Plank());
 	    // Place some random humans
 		String[] humans = {"Carlton", "May", "Vicente", "Andrea", "Wendy",
 				"Elina", "Winter", "Clem", "Jacob", "Jaquelyn"};

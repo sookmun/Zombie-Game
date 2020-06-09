@@ -58,6 +58,38 @@ public class Player extends Human {
 				actions.add(new HarvestAction());
 				break;
 			}
+			if ((locate.getActor() instanceof Human)){
+				if ((locate.getActor() instanceof Player) || (locate.getActor() instanceof Farmer)) {
+					break;
+				}
+				else{	// if the actor in a normal Human
+					System.out.println(locate.getActor().toString());
+					boolean human_contain_weapon = false;
+					for (Item item: locate.getActor().getInventory()){
+						if (item instanceof WeaponItem){	// check if the human contains WeaponItem to trade
+							human_contain_weapon = true;
+							break;
+						}
+					}
+					if (human_contain_weapon) {    // if human contains WeaponItem
+						boolean player_contain_weapon = false;
+						boolean player_contain_food = false;
+						for (Item item : inventory) {    // check player's inventory
+							if (item instanceof WeaponItem) {
+								player_contain_weapon = true;
+							} else if (item instanceof Food) {
+								player_contain_food = true;
+							}
+						}
+						if (player_contain_weapon && player_contain_food){	// if player has both weapon and food
+							actions.add(new TradeAction(locate.getActor(), true));
+						} else if (player_contain_weapon) {    // if player has weapon only
+							actions.add(new TradeAction(locate.getActor(), false));
+						}
+					}
+				}
+
+			}
 
 		}
 		actions.add( new EndGame());

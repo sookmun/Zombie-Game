@@ -23,7 +23,7 @@ public class EatAction extends Action {
     public String execute(Actor actor, GameMap map){
         List<Item> inventory = actor.getInventory();
         for(Item item : inventory){
-            if (item.getDisplayChar() - 'F'==0){
+            if (item.getDisplayChar() - 'F' == 0){
                 actor.removeItemFromInventory(item); // remove the food
                 actor.heal(5); //eating it will add health points
                 return actor.toString() + " eat food and 5 health points restored";
@@ -38,5 +38,7 @@ public class EatAction extends Action {
      * @return String description of action
      */
     @Override
-    public String menuDescription(Actor actor){return actor.toString() + " eats food";}
+    public String menuDescription(Actor actor){
+        return actor.toString() + " eats food";
+    }
 }
