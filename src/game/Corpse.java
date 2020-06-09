@@ -17,7 +17,7 @@ public class Corpse extends PortableItem {
     private Actor actor;
     private String name;
     private GameMap map;
-
+    private final int max = 10;
     /**
      * Constructor
      *
@@ -55,7 +55,7 @@ public class Corpse extends PortableItem {
         this.location=currentLocation;
         this.actor = null;
 //        System.out.println(" tick: " + count);
-        if (count>=10){
+        if (count>=max){
             zombie_rise(map);
 
         }
