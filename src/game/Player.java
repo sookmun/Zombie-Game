@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class Player extends Human {
 	private Menu menu = new Menu();
-	private int[][] values ={{1,-1},{1,0},{1+1},{0,-1},{0,0},{0,1},{-1,1},{-1,0},{-1,-1}};
-	private WeaponItem rangedweapon;
+	private ArrayList<Item> itemsToDelete= new ArrayList<>();
+
 
 
 	/**
@@ -48,9 +48,22 @@ public class Player extends Human {
 				actions.add(new EatAction());
 			}
 			if (item.getDisplayChar() - 'S' == 0){
-				actions.add(new Shoot(item));
+
+				if (((Shotgun) item).getBullets()>0)
+					actions.add(new Shoot(item));
+				loadBullets(this,';',item);
+
+			}
+			if (item.getDisplayChar()-'R'==0){
+				if (((SniperRifle) item).getBullets()>0)
+					actions.add(new Shoot(item));
+				loadBullets(this,':',item);
 			}
 
+
+		}
+		for(Item items: itemsToDelete){
+			this.removeItemFromInventory(items);
 		}
 		AroundLocation location =new AroundLocation(this,map);
 		for(Location locate : location.getLocation(this,map)){
@@ -60,6 +73,7 @@ public class Player extends Human {
 			}
 
 		}
+
 		actions.add( new EndGame());
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
@@ -67,6 +81,66 @@ public class Player extends Human {
 		return menu.showMenu(this,actions,display);
 
 	}
+
+	private void loadBullets(Actor actor, char character, Item rangedWeapon){
+		List<Item> inventory = actor.getInventory();
+		for (Item item: inventory){
+			if(rangedWeapon.getDisplayChar()-'S'==0 && item.getDisplayChar()-';'==0){
+				((Shotgun) rangedWeapon).loadBullets(3);
+				itemsToDelete.add(item);
+
+			}
+			if(rangedWeapon.getDisplayChar()-'R'==0 && item.getDisplayChar()-':'==0){
+				((SniperRifle) rangedWeapon).loadBullets(3);
+				itemsToDelete.add(item);
+			}
+		}
+
+	}
+	@Override
+	public Weapon getWeapon(){
+		ArrayList<Weapon> deletetemp= new ArrayList<>();
+
+		ArrayList<Weapon> weapons = new ArrayList<>();
+		for(Item item: this.getInventory()){
+			if(item.asWeapon() != null){
+				weapons.add((Weapon)item);
+			}
+		}
+		if(weapons.size()==0){ ///when you have no weapons
+			return this.getIntrinsicWeapon();
+		}
+		for(Weapon weapon1: weapons){
+			Boolean flag=false;
+			if(weapon1 instanceof Shotgun){
+				if(((Shotgun) weapon1).getBullets()>0){
+					return weapon1;
+				}
+				deletetemp.add(weapon1);
+				flag=true;
+			}
+			if(weapon1 instanceof SniperRifle){
+				if(((SniperRifle) weapon1).getBullets()>0){
+					return weapon1;
+				}
+				deletetemp.add(weapon1);
+				flag=true;
+			}
+			if(!flag){
+				return weapon1;
+			}
+
+		}
+		for(Weapon weapon : deletetemp){
+			this.removeItemFromInventory((Item)weapon);
+		}
+		Weapon weapon =this.getWeapon();
+		for(Weapon weapon1: deletetemp){
+			this.addItemToInventory((Item)weapon1);
+		}
+		return weapon;
+	}
+
 
 
 

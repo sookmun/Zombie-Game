@@ -11,4 +11,6 @@ public class Vehicle extends Item {
     public void addAction(Action action) {
         this.allowableActions.add(action);
     }
+
+
 }

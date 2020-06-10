@@ -1,5 +1,6 @@
 package game;
 
+
 import edu.monash.fit2099.engine.*;
 
 import java.util.*;
@@ -8,18 +9,19 @@ public class Shoot extends Action{
     private Item weaponItem;
     private Boolean flag=false;
     private HashSet<Location> visitedLocations = new HashSet<Location>();
+    private List<Location> zombielocation = new ArrayList<>();
+    private Menu menu = new Menu();
+    private ArrayList<String> retDirection = new ArrayList<>();
     private List<String> direction = new ArrayList<String>(){{
-        add("West");
         add("North");
+        add("North-East");
+        add("East");
         add("South-East");
         add("South");
         add("South-West");
+        add("West");
         add("North-West");
-        add("East");
-        add("North-East");
-    }
-
-    };
+    }    };
 
 
     public Shoot(Item weaponItem){
@@ -29,9 +31,9 @@ public class Shoot extends Action{
     public String execute(Actor actor, GameMap map){
         String result="";
         if (weaponItem instanceof Shotgun){
-            checkBullets(actor, "S");
             if(((Shotgun) weaponItem).getBullets() > 0) {
-                result = shortrange(actor, map, direction.get(0));
+                range(actor, map, 3);
+                result += Shotgun(actor,map);
                 ((Shotgun) weaponItem).fired();
             }
             else{
@@ -39,9 +41,16 @@ public class Shoot extends Action{
             }
         }
         else{
-            checkBullets(actor, ":");
             if(((SniperRifle) weaponItem).getBullets() > 0) {
-                result = shortrange(actor, map, direction.get(0));
+                if(map.getYRange().max()>map.getXRange().max()){
+                    range(actor, map, map.getYRange().max());
+                    result += Shotgun(actor,map);
+                }
+                else{
+                    range(actor, map, map.getXRange().max());
+                    result+=SniperRifle(actor,map);
+                }
+
                 ((SniperRifle) weaponItem).fired();
             }
             else{
@@ -54,56 +63,41 @@ public class Shoot extends Action{
 
     public String menuDescription(Actor actor ){ return actor + " shoots";}
 
-    private void checkBullets(Actor actor,String ammunition){
-        Item ammu= null;
-        for (Item item: actor.getInventory()){
-            if (item instanceof ShotgunAmmunition && ammunition.equals("S")){ //a box of ammunition has 3 bullets
-                ((Shotgun) weaponItem).loadBullets(3);
-                ammu=item;
-
-            }
-            if (item instanceof SniperRifleAmmunition && ammunition.equals(":")){
-                ((SniperRifle) weaponItem).loadBullets(1);
-            }
-        }
-        if( ammu != null)
-            actor.removeItemFromInventory(ammu);
-
-    }
 
 
-    public String shortrange(Actor actor, GameMap map, String direction){
-        String result= "";
+    public void range(Actor actor, GameMap map, int range){
         visitedLocations.clear();
-        ArrayList<Location> now = new ArrayList<Location>();
+        ArrayList<Location> now = new ArrayList<>();
+
         now.add(map.locationOf(actor));
         ArrayList<ArrayList<Location>> layer = new ArrayList<ArrayList<Location>>();
         layer.add(now);
 
-
-        for (int i = 0; i<3; i++) {
-            layer = getNextLayer(direction, layer);
-            ArrayList<Location> there = search(layer);
-            for (Location loca : there){
-                if (loca != null) {
-                    AttackAction attack = new AttackAction(loca.getActor());
-                    result +=attack.execute(actor,map);
-                    result += '\n';
-
-                }
-            }
-
+        if(weaponItem instanceof Shotgun){
+            Random random = new Random();
+            getDirection(random.nextInt(direction.size()));
         }
 
-        return result;
+
+        for (int i = 0; i<range; i++) {
+            if(weaponItem instanceof SniperRifle){
+                layer = getNextLayer(null, layer);
+            }
+            else{
+                layer = getNextLayer(retDirection.get(i), layer);
+            }
+            ArrayList<Location> there = search(layer);
+            zombielocation.addAll(there);
+
+        }
 
     }
     private ArrayList<ArrayList<Location>> getNextLayer(String direction, ArrayList<ArrayList<Location>> layer) {
         ArrayList<ArrayList<Location>> nextLayer = new ArrayList<ArrayList<Location>>();
 
         for (ArrayList<Location> path : layer) {
-//            List<Exit> exits = new ArrayList<Exit>(path.get(path.size() - 1).getExits());
             for (Exit exit : path.get(path.size() - 1).getExits()) {
+                if (retDirection.contains(exit.getName()) || direction == null) {
                     Location destination = exit.getDestination();
                     if (visitedLocations.contains(destination))
                         continue;
@@ -111,6 +105,7 @@ public class Shoot extends Action{
                     ArrayList<Location> newPath = new ArrayList<Location>(path);
                     newPath.add(destination);
                     nextLayer.add(newPath);
+                }
             }
         }
         return nextLayer;
@@ -118,7 +113,6 @@ public class Shoot extends Action{
 
     private ArrayList<Location> search(ArrayList<ArrayList<Location>> layer) {
         ArrayList<Location> ac = new ArrayList<>();
-
         for (ArrayList<Location> path : layer) {
             if (containsTarget(path.get(path.size() - 1))) {
                 ac.add(path.get(path.size() - 1));
@@ -131,4 +125,49 @@ public class Shoot extends Action{
         return (here.getActor() != null &&
                 here.getActor() instanceof Zombie);
     }
+
+    private String SniperRifle(Actor actor, GameMap map){
+        Actions actions= new Actions();
+        for (Location location : zombielocation){
+
+            actions.add(new ChooseZombie(location.getActor(), Integer.toString(zombielocation.indexOf(location))));
+
+        }
+        Action action = menu.showMenu(actor, actions,new Display());
+        String zombie=action.execute(actor,map);
+        actions.add(new AimAction(zombielocation.get(Integer.parseInt(zombie)).getActor(),(SniperRifle)weaponItem));
+
+        return action.execute(actor,map);
+    }
+
+    private String Shotgun(Actor actor, GameMap map){
+        String result ="";
+        for(Location location : zombielocation){
+           AttackAction action= new AttackAction(location.getActor());
+           result += action.execute(actor,map) + '\n';
+        }
+        if (result.equals("")){
+            result += "Shoot in the direction of "+ retDirection.get(1) + " No Zombies was shoot";
+        }
+
+        return result;
+    }
+
+    public void getDirection(int index){
+        try {
+            retDirection.add(direction.get(index+1));
+        }
+        catch (Exception e){
+            retDirection.add(direction.get(0));
+        }
+        retDirection.add(direction.get(index));
+        try {
+            retDirection.add(direction.get(index - 1));
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            retDirection.add(direction.get(direction.size()-1));
+        }
+
+    }
+
 }

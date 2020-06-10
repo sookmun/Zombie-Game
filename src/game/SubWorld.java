@@ -42,7 +42,12 @@ public class SubWorld extends World {
                     mambo = true;   // change mambo into true when Mambo Marie exist in the map
                 }
                 if (stillRunning())//maybe can change here for end game
-                    processActorTurn(actor);
+                    try {
+                        processActorTurn(actor);
+                    }
+                catch (IllegalArgumentException e){
+                    System.out.println("Vehicle in used. try again in a few turns");
+                }
             }
 
             // Tick over all the maps. For the map stuff.
@@ -67,6 +72,10 @@ public class SubWorld extends World {
 
         }
         display.println(endGameMessage());
+    }
+
+    public ActorLocations getActorLocations(){
+        return actorLocations;
     }
 
 }

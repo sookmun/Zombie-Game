@@ -2,10 +2,8 @@ package game;
 
 import edu.monash.fit2099.engine.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
+
 
 
 public class Shotgun extends WeaponItem {

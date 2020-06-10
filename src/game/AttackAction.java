@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import edu.monash.fit2099.engine.*;
@@ -49,17 +50,17 @@ public class AttackAction extends Action {
 	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
-		Weapon weapon = actor.getWeapon();    // get weapon. Return WeaponItem, else Intrinsic Weapon
-//		if (weapon instanceof WeaponItem){
-//			if(((WeaponItem) weapon).hasCapability(WeaponCapability.SHORTRANGE) || ((WeaponItem) weapon).hasCapability(WeaponCapability.LONGRANGE)){
-//				actor.removeItemFromInventory((Item)weapon);
-//				weapon=actor.getWeapon();
-//			}
-//		}
+
+		Weapon weapon =actor.getWeapon();
 
 		if (actor.hasCapability(ZombieCapability.UNDEAD) && weapon.verb().equals("bites")){    // Zombie's bite action
 			if (!getBooleanWithProbability(30)){   // only 30% change of biting. if false, means do not bite
 				return actor + " misses " + target + ".";    //    misses the target
+			}
+		}
+		else if (actor.hasCapability(ZombieCapability.ALIVE) && weapon instanceof Shotgun){
+			if(rand.nextDouble() >0.75){ //shotgun probability is 0.75
+				return actor + " misses " + target + ".";
 			}
 		}
 		else {    // if not Zombie or the Zombie's IntrinsicWeapon is 'punches'
@@ -67,6 +68,7 @@ public class AttackAction extends Action {
 				return actor + " misses " + target + ".";    //    misses the target
 			}
 		}
+
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 
@@ -213,5 +215,7 @@ public class AttackAction extends Action {
 			return (target + " did not lose its arm(s) or limb(s)");
 		}
 	}
+
+
 
 }

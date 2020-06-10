@@ -58,20 +58,6 @@ public class Human extends ZombieActor {
 				}
 			}
 		}
-//human has the ability to destroy the crop idea came from misreading the instructions. Maybe use it in assignment 3?
-//		List<Item> itemGround = map.locationOf(this).getItems();
-//		for (Item item : itemGround){ // loop through what is on the ground
-//			if(item.getDisplayChar()-'C'==0){ //if there is a crop set flag and save item
-//				flag=true;
-//				crop=item;
-//			}
-//
-//		}
-//		//with a probability of 30% humans may damage a crop when standing on it
-//		if(rand.nextDouble()<0.30 && flag ){
-//			map.locationOf(this).removeItem(crop);
-//			System.out.println(this.toString()+ "destroyed the crop");
-//		}
 
 		return behaviour.getAction(this, map);
 	}

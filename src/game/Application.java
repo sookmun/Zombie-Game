@@ -75,6 +75,8 @@ public class Application {
 		vehicle.addAction(new MoveActorAction(town.at(45,12), "go to town"));
 		gameMap.at(65,12).addItem(vehicle);
 		gameMap.at(42,15).addItem(vehicle); // put near player easy for testing
+		gameMap.at(45,15).addItem(new ShotgunAmmunition());
+		gameMap.at(46,16).addItem(new SniperRifleAmmunition());
 
 		Vehicle vehicletoForest = new Vehicle();
 		town.at(45,12).addItem(vehicletoForest);

@@ -39,24 +39,5 @@ public class SowAction extends Action {
     @Override
     public String menuDescription(Actor actor){return actor.toString() + " sow the ground"; }
 
-    private ArrayList<ArrayList<Location>> getNextLayer(Actor actor, ArrayList<ArrayList<Location>> layer) {
-        HashSet<Location> visitedLocations = new HashSet<Location>();
-        ArrayList<ArrayList<Location>> nextLayer = new ArrayList<ArrayList<Location>>();
-
-        for (ArrayList<Location> path : layer) {
-            List<Exit> exits = new ArrayList<Exit>(path.get(path.size() - 1).getExits());
-            Collections.shuffle(exits);
-            for (Exit exit : path.get(path.size() - 1).getExits()) {
-                Location destination = exit.getDestination();
-                if (!destination.getGround().canActorEnter(actor) || visitedLocations.contains(destination))
-                    continue;
-                visitedLocations.add(destination);
-                ArrayList<Location> newPath = new ArrayList<Location>(path);
-                newPath.add(destination);
-                nextLayer.add(newPath);
-            }
-        }
-        return nextLayer;
-    }
 
 }
