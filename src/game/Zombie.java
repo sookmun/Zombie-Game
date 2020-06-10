@@ -83,6 +83,11 @@ public class Zombie extends ZombieActor {
 				}
 			}
 		}
+		if (rand.nextInt(100)+1 <= 10){		// 10 % chance of damaging the crop and turn them back into dirt
+			if (map.locationOf(this).getGround().getDisplayChar() - 'C' == 0 ){
+				return new UnsowAction();
+			}
+		}
 
 		for (Behaviour behaviour : behaviours) {
 			if (num_of_legs==2){

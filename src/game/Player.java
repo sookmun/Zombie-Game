@@ -51,8 +51,8 @@ public class Player extends Human {
 			if (item.getDisplayChar() - 'S' == 0) {
 				actions.add(new Shoot(item));
 			}
-
 		}
+
 		AroundLocation location = new AroundLocation(this, map);
 		for (Location locate : location.getLocation(this, map)) {
 			if (locate.getGround().hasCapability(CropCapability.Ripe)) {

@@ -29,11 +29,7 @@ public class SowAction extends Action {
                 return actor.toString() + "sowed the ground";
             }
         }
-
-
         return null;
-
-
     }
 
     @Override

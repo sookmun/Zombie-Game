@@ -24,7 +24,7 @@ public class TradeAction extends Action {
         if (food){
             probability = 75;
         }else{
-            probability = 90;
+            probability = 50;
         }
         boolean trade = (rand.nextInt(100)+1 <= probability);   // probability of human agreeing to trade
 
