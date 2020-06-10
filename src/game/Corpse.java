@@ -61,23 +61,6 @@ public class Corpse extends PortableItem {
      * This method will create a new zombie, and remove the corpse from the map
      * @param map: currentMap
      */
-//    public void zombie_rise(GameMap map){
-//        Location here = this.location;
-//        if (location.getActor()==null){
-//            here.addActor(new Zombie(name));
-//        }
-//        else{
-//            Location next;
-//            if (here.y()+1 <= map.getYRange().max()){
-//                next = new Location(map, here.x(), here.y()+1);
-//            } else{
-//                next = new Location(map, here.x(), here.y()-1);
-//            }
-//            next.addActor(new Zombie(name));
-//        }
-//        location.removeItem(location.getItems().get(location.getItems().size()-1)); // drop the last item in the list, which is the corpse
-//        System.out.println(name + "'s corpse rise as a zombie");
-//    }
 
     public void zombie_rise(GameMap map) {
         if (location.getActor() == null) {

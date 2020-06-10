@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Class representing the Player.
@@ -12,6 +13,9 @@ public class Player extends Human {
 	private Menu menu = new Menu();
 	private int[][] values = {{1, -1}, {1, 0}, {1 + 1}, {0, -1}, {0, 0}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}};
 	private WeaponItem rangedweapon;
+	private int tick = 0;
+	private final int max_tick = 15;
+	private Random rand = new Random();
 
 
 	/**
@@ -36,6 +40,15 @@ public class Player extends Human {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		this.tick += 1;
+		if (tick >= max_tick){	// currently max_tick is 15, change it to 1 for testing.
+			this.tick = 0;
+			if (rand.nextInt(100)+1 <= 50){		// 50% chance of having an armour beside him
+//			if (true){	// comment out the top line and uncomment this line for testing
+				map.locationOf(this).addItem(new Armour());
+				}
+			}
+
 		List<Item> groundItems = map.locationOf(this).getItems();
 		//always checks if there are any zombie limbs in the inventory
 		List<Item> inventory = this.getInventory();
@@ -120,4 +133,6 @@ public class Player extends Human {
 		}
 		return getIntrinsicWeapon();
 	}
+
+
 }
