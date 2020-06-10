@@ -58,11 +58,12 @@ public class TradeAction extends Action {
                         break;
                     }
                 }
-                target_inventory.add(new Food());   // add food to target's inventory
+                target.addItemToInventory(new Food());
+                return (actor + " traded " + actor_weapon + " and food with " + target + "'s " + target_weapon);
             }
             return (actor + " traded " + actor_weapon + " with " + target + "'s " + target_weapon);
         }
-        return null;
+        return (target + " refuses to trade with " + actor);
     }
 
     @Override

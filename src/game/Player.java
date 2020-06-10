@@ -63,7 +63,6 @@ public class Player extends Human {
 					break;
 				}
 				else{	// if the actor in a normal Human
-					System.out.println(locate.getActor().toString());
 					boolean human_contain_weapon = false;
 					for (Item item: locate.getActor().getInventory()){
 						if (item instanceof WeaponItem){	// check if the human contains WeaponItem to trade

@@ -94,8 +94,13 @@ public class Application {
 		world.addPlayer(player, gameMap.at(42, 15));
 		gameMap.at(43,15).addItem(new ZombieMace());
 //		gameMap.at(42, 16).addItem(new Food());
-		gameMap.at(42, 17).addActor(new Human("sample"));
-		gameMap.at(42, 17).addItem(new Plank());
+
+		// Added by LYY to test TradeAction between player and human
+		gameMap.at(42, 16).addActor(new Human("Testing_human"));
+		gameMap.at(42,16).addItem(new ZombieMace());
+		gameMap.at(42, 16).addItem(new Plank());
+		gameMap.at(42,15).addItem(new Food());
+
 	    // Place some random humans
 		String[] humans = {"Carlton", "May", "Vicente", "Andrea", "Wendy",
 				"Elina", "Winter", "Clem", "Jacob", "Jaquelyn"};
