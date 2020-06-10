@@ -50,12 +50,14 @@ public class AttackAction extends Action {
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		Weapon weapon = actor.getWeapon();    // get weapon. Return WeaponItem, else Intrinsic Weapon
+
 //		if (weapon instanceof WeaponItem){
 //			if(((WeaponItem) weapon).hasCapability(WeaponCapability.SHORTRANGE) || ((WeaponItem) weapon).hasCapability(WeaponCapability.LONGRANGE)){
 //				actor.removeItemFromInventory((Item)weapon);
 //				weapon=actor.getWeapon();
 //			}
 //		}
+
 
 		if (actor.hasCapability(ZombieCapability.UNDEAD) && weapon.verb().equals("bites")){    // Zombie's bite action
 			if (!getBooleanWithProbability(30)){   // only 30% change of biting. if false, means do not bite

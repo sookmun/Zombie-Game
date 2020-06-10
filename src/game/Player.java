@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Player extends Human {
 	private Menu menu = new Menu();
-	private int[][] values ={{1,-1},{1,0},{1+1},{0,-1},{0,0},{0,1},{-1,1},{-1,0},{-1,-1}};
+	private int[][] values = {{1, -1}, {1, 0}, {1 + 1}, {0, -1}, {0, 0}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}};
 	private WeaponItem rangedweapon;
 
 
@@ -27,10 +27,11 @@ public class Player extends Human {
 
 	/**
 	 * Player actions when its turn to play. If there is food or zombie limbs add in the appropriate action in actions list
-	 * @param actions list of actions that player is allow to have
+	 *
+	 * @param actions    list of actions that player is allow to have
 	 * @param lastAction the last action that the player had
-	 * @param map map of game
-	 * @param display display
+	 * @param map        map of game
+	 * @param display    display
 	 * @return return the action that is chosen by player
 	 */
 	@Override
@@ -47,25 +48,24 @@ public class Player extends Human {
 			if (item.getDisplayChar() - 'F' == 0) {
 				actions.add(new EatAction());
 			}
-			if (item.getDisplayChar() - 'S' == 0){
+			if (item.getDisplayChar() - 'S' == 0) {
 				actions.add(new Shoot(item));
 			}
 
 		}
-		AroundLocation location =new AroundLocation(this,map);
-		for(Location locate : location.getLocation(this,map)){
-			if(locate.getGround().hasCapability(CropCapability.Ripe)){
+		AroundLocation location = new AroundLocation(this, map);
+		for (Location locate : location.getLocation(this, map)) {
+			if (locate.getGround().hasCapability(CropCapability.Ripe)) {
 				actions.add(new HarvestAction());
 				break;
 			}
-			if ((locate.getActor() instanceof Human)){
+			if ((locate.getActor() instanceof Human)) {
 				if ((locate.getActor() instanceof Player) || (locate.getActor() instanceof Farmer)) {
 					break;
-				}
-				else{	// if the actor in a normal Human
+				} else {    // if the actor in a normal Human
 					boolean human_contain_weapon = false;
-					for (Item item: locate.getActor().getInventory()){
-						if (item instanceof WeaponItem){	// check if the human contains WeaponItem to trade
+					for (Item item : locate.getActor().getInventory()) {
+						if (item instanceof WeaponItem) {    // check if the human contains WeaponItem to trade
 							human_contain_weapon = true;
 							break;
 						}
@@ -80,7 +80,7 @@ public class Player extends Human {
 								player_contain_food = true;
 							}
 						}
-						if (player_contain_weapon && player_contain_food){	// if player has both weapon and food
+						if (player_contain_weapon && player_contain_food) {    // if player has both weapon and food
 							actions.add(new TradeAction(locate.getActor(), true));
 						} else if (player_contain_weapon) {    // if player has weapon only
 							actions.add(new TradeAction(locate.getActor(), false));
@@ -91,15 +91,33 @@ public class Player extends Human {
 			}
 
 		}
-		actions.add( new EndGame());
+		actions.add(new EndGame());
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 
-		return menu.showMenu(this,actions,display);
+		return menu.showMenu(this, actions, display);
 
 	}
 
-
-
-
+	@Override
+	public Weapon getWeapon() {
+		int damage_count = 0;
+		Weapon weapon = null;
+		boolean contain_weapon = false;
+		for (Item item : inventory) {
+			if (item instanceof Weapon){
+				contain_weapon = true;
+//				System.out.println(item + " " + item.getDisplayChar());
+				if (((Weapon) item).damage() > damage_count){
+					weapon = (Weapon)item;
+					damage_count = weapon.damage();
+				}
+			}
+		}
+		if (contain_weapon){
+//			System.out.println("Weapon used: " + weapon + weapon.damage());
+			return weapon;
+		}
+		return getIntrinsicWeapon();
+	}
 }
