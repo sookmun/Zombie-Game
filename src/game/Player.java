@@ -43,7 +43,7 @@ public class Player extends Human {
 		this.tick += 1;
 		if (tick >= max_tick){	// currently max_tick is 15, change it to 1 for testing.
 			this.tick = 0;
-			if (rand.nextInt(100)+1 <= 50){		// 50% chance of having an armour beside him
+			if (rand.nextInt(100)+1 <= 30){		// 50% chance of having an armour beside him
 //			if (true){	// comment out the top line and uncomment this line for testing
 				map.locationOf(this).addItem(new Armour());
 				}
@@ -144,7 +144,7 @@ public class Player extends Human {
 				flag=true;
 			}
 			if(weapon1 instanceof SniperRifle){
-				if(((SniperRifle) weapon1).getBullets()>0){
+				if(((SniperRifle) weapon1).getBullets()>0 && ((SniperRifle) weapon1).getAim()){
 					return weapon1;
 				}
 				deletetemp.add(weapon1); //delete sniper rifle
@@ -163,6 +163,20 @@ public class Player extends Human {
 			this.addItemToInventory((Item)weapon1);
 		}
 		return weapon;
+	}
+
+	@Override
+	public void hurt(int points){
+		System.out.println("before"+ this.hitPoints);
+		for(Item item :this.getInventory()){
+			if (item.getDisplayChar()-'U'==0){
+				this.hitPoints-=points- rand.nextInt(5);
+				System.out.println("after"+ this.hitPoints);
+				return;
+			}
+		}
+		System.out.println("after"+ this.hitPoints);
+		this.hitPoints-=points;
 	}
 
 
