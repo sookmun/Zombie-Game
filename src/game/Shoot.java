@@ -54,7 +54,7 @@ public class Shoot extends Action{
                 ((SniperRifle) weaponItem).fired();
             }
             else{
-                return "Cant shoot no bulets.Search at town for  Ammunition";
+                return "Cant shoot no bullets.Search at town for  Ammunition";
             }
 
         }

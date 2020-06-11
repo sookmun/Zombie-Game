@@ -95,7 +95,6 @@ public class AttackAction extends Action {
 			} catch (Exception e){
 				e.printStackTrace(System.out);
 			}
-
 		}
 
 		target.hurt(damage);
@@ -107,7 +106,6 @@ public class AttackAction extends Action {
 			else {
 				corpse = new Corpse(target+"", map); 	// Only Corpse() can rise
 			}
-
 
 			map.locationOf(target).addItem(corpse);
 			Actions dropActions = new Actions();

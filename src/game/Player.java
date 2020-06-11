@@ -41,13 +41,13 @@ public class Player extends Human {
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
 		this.tick += 1;
-		if (tick >= max_tick){	// currently max_tick is 15, change it to 1 for testing.
+		if (tick >= max_tick) {    // currently max_tick is 15, change it to 1 for testing.
 			this.tick = 0;
-			if (rand.nextInt(100)+1 <= 30){		// 50% chance of having an armour beside him
+			if (rand.nextInt(100) + 1 <= 50) {        // 50% chance of having an armour beside him
 //			if (true){	// comment out the top line and uncomment this line for testing
 				map.locationOf(this).addItem(new Armour());
-				}
 			}
+		}
 
 		//always checks if there are any zombie limbs in the inventory
 		List<Item> inventory = this.getInventory();
@@ -60,23 +60,22 @@ public class Player extends Human {
 			if (item.getDisplayChar() - 'F' == 0) {
 				actions.add(new EatAction());
 			}
-			if (item.getDisplayChar() - 'S' == 0){
-				if (((Shotgun) item).getBullets()>0)
+			if (item.getDisplayChar() - 'S' == 0) {
+				if (((Shotgun) item).getBullets() > 0)
 					actions.add(new Shoot(item));
-				loadBullets(this,item);
+				loadBullets(this, item);
 
 			}
-			if (item.getDisplayChar()-'R'==0){
-				if(((SniperRifle) item).getAim() &&(lastAction.menuDescription(this).contains("aims") ||
-						lastAction.menuDescription(this).contains("shoots"))){
+			if (item.getDisplayChar() - 'R' == 0) {
+				if (((SniperRifle) item).getAim() && (lastAction.menuDescription(this).contains("aims") ||
+						lastAction.menuDescription(this).contains("shoots"))) {
 					actions.add(new AttackAction(((SniperRifle) item).getTarget()));
-					actions.add(new AimAction(((SniperRifle) item).getTarget(),(SniperRifle)item));
-				}
-				else {
+					actions.add(new AimAction(((SniperRifle) item).getTarget(), (SniperRifle) item));
+				} else {
 					//maybe make this all into one method?
 					((SniperRifle) item).reset();
 					if (((SniperRifle) item).getBullets() > 0) {
-							actions.add(new Shoot(item));
+						actions.add(new Shoot(item));
 					}
 					loadBullets(this, item);
 				}
@@ -84,7 +83,7 @@ public class Player extends Human {
 
 
 		}
-		for(Item items: itemsToDelete){
+		for (Item items : itemsToDelete) {
 			this.removeItemFromInventory(items);
 		}
 
@@ -97,90 +96,88 @@ public class Player extends Human {
 
 		}
 
-		actions.add( new EndGame());
+		actions.add(new EndGame());
 
 		//do we need this???
 //		if (lastAction.getNextAction() != null)
 //			return lastAction.getNextAction();
 
-		return menu.showMenu(this,actions,display);
+		return menu.showMenu(this, actions, display);
 
 	}
 
-	private void loadBullets(Actor actor, Item rangedWeapon){
+	private void loadBullets(Actor actor, Item rangedWeapon) {
 		List<Item> inventory = actor.getInventory();
-		for (Item item: inventory){
-			if(rangedWeapon.getDisplayChar()-'S'==0 && item.getDisplayChar()-';'==0){
+		for (Item item : inventory) {
+			if (rangedWeapon.getDisplayChar() - 'S' == 0 && item.getDisplayChar() - ';' == 0) {
 				((Shotgun) rangedWeapon).loadBullets(3);
 				itemsToDelete.add(item);
 
 			}
-			if(rangedWeapon.getDisplayChar()-'R'==0 && item.getDisplayChar()-':'==0){
+			if (rangedWeapon.getDisplayChar() - 'R' == 0 && item.getDisplayChar() - ':' == 0) {
 				((SniperRifle) rangedWeapon).loadBullets(3);
 				itemsToDelete.add(item);
 			}
 		}
 
 	}
+
 	@Override
-	public Weapon getWeapon(){
-		ArrayList<Weapon> deletetemp= new ArrayList<>();//delete the ammunition after loading it
+	public Weapon getWeapon() {
+		ArrayList<Weapon> deletetemp = new ArrayList<>();//delete the ammunition after loading it
 
 		ArrayList<Weapon> weapons = new ArrayList<>();
-		for(Item item: this.getInventory()){ //get the weapon in the inventory
-			if(item.asWeapon() != null){
-				weapons.add((Weapon)item);
+//		ArrayList<Weapon> other_weapons = new ArrayList<>();
+		for (Item item : this.getInventory()) { //get the weapon in the inventory
+			if (item.asWeapon() != null) {
+				weapons.add((Weapon) item);
 			}
 		}
-		if(weapons.size()==0){ ///when you have no weapons
+		if (weapons.size() == 0) { ///when you have no weapons
 			return this.getIntrinsicWeapon();
 		}
-		for(Weapon weapon1: weapons){ //loop through the weapon
-			if(weapon1 instanceof Shotgun){
-				if(((Shotgun) weapon1).getBullets()>0){
+
+//		Actions choose_weapons= new Actions();
+
+		for (Weapon weapon1 : weapons) { //loop through the weapon
+			if (weapon1 instanceof Shotgun) {
+				if (((Shotgun) weapon1).getBullets() > 0) {
 					return weapon1;
 				}
 				deletetemp.add(weapon1); //delete shotgun so can get other weapon
-				flag=true;
+				flag = true;
 			}
-			if(weapon1 instanceof SniperRifle){
-				if(((SniperRifle) weapon1).getBullets()>0 && ((SniperRifle) weapon1).getAim()){
+			if (weapon1 instanceof SniperRifle) {
+				if (((SniperRifle) weapon1).getBullets() > 0) {
 					return weapon1;
 				}
 				deletetemp.add(weapon1); //delete sniper rifle
-				flag=true;
+				flag = true;
 			}
-			if(!flag){
-				return weapon1;//if is not sniper or shotgun the used it
-			}
+			if (!flag) {
+//				other_weapons.add(weapon1);
+//				System.out.println(weapon1, "weapon1");
+//				choose_weapons.add(new ChooseWeapon(weapon1));
 
+				return weapon1;//if is not sniper or shotgun the used it
+
+			}
 		}
-		for(Weapon weapon : deletetemp){
-			this.removeItemFromInventory((Item)weapon);
+//		if (!flag){
+//			Action chosen_weapon = menu.showMenu(this, choose_weapons,new Display());
+//			return chosen_weapon;
+//			System.out.println(chosen_weapon + "here");
+//			String weapon = wespon.execute(this,map);
+//
+//		}
+		for (Weapon weapon : deletetemp) {
+			this.removeItemFromInventory((Item) weapon);
 		}
-		Weapon weapon =this.getWeapon();
-		for(Weapon weapon1: deletetemp){
-			this.addItemToInventory((Item)weapon1);
+		Weapon weapon = this.getWeapon();
+		for (Weapon weapon1 : deletetemp) {
+			this.addItemToInventory((Item) weapon1);
 		}
 		return weapon;
 	}
-
-	@Override
-	public void hurt(int points){
-		System.out.println("before"+ this.hitPoints);
-		for(Item item :this.getInventory()){
-			if (item.getDisplayChar()-'U'==0){
-				this.hitPoints-=points- rand.nextInt(5);
-				System.out.println("after"+ this.hitPoints);
-				return;
-			}
-		}
-		System.out.println("after"+ this.hitPoints);
-		this.hitPoints-=points;
-	}
-
-
-
-
-
 }
+
