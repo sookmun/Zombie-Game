@@ -61,7 +61,7 @@ public class Shoot extends Action{
         return result;
     }
 
-    public String menuDescription(Actor actor ){ return actor + " shoots";}
+    public String menuDescription(Actor actor ){ return actor + " shoots " + weaponItem.toString();}
 
 
 
@@ -129,14 +129,21 @@ public class Shoot extends Action{
     private String SniperRifle(Actor actor, GameMap map){
         Actions actions= new Actions();
         for (Location location : zombielocation){
-
             actions.add(new ChooseZombie(location.getActor(), Integer.toString(zombielocation.indexOf(location))));
 
         }
         Action action = menu.showMenu(actor, actions,new Display());
         String zombie=action.execute(actor,map);
-        actions.add(new AimAction(zombielocation.get(Integer.parseInt(zombie)).getActor(),(SniperRifle)weaponItem));
 
+        Actions next_actions= new Actions();
+        next_actions.add(new AttackAction(zombielocation.get(Integer.parseInt(zombie)).getActor()));
+        next_actions.add(new AimAction(zombielocation.get(Integer.parseInt(zombie)).getActor(),(SniperRifle)weaponItem));
+        action = menu.showMenu(actor,next_actions,new Display());
+        if(action instanceof AimAction){
+            ((SniperRifle) weaponItem).setAim(true);
+            ((SniperRifle) weaponItem).setTarget(zombielocation.get(Integer.parseInt(zombie)).getActor());
+        }
+        else { ((SniperRifle) weaponItem).setAim(false);}
         return action.execute(actor,map);
     }
 

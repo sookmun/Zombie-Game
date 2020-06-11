@@ -32,9 +32,14 @@ public class MamboMarie extends ZombieActor {
 
         for (Behaviour behaviour : behaviours) {
             Action action = behaviour.getAction(this, map);
-            if (action != null)
+            if (action instanceof AttackAction){
+                if (!(((AttackAction) action).target instanceof Zombie)){    // can't attack Zombie, only Human and Player
+                    return action;
+                }
+            }
+            else if (action != null){
                 return action;
-
+            }
         }
         return new DoNothingAction();
     }

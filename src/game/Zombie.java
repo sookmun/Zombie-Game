@@ -83,6 +83,11 @@ public class Zombie extends ZombieActor {
 				}
 			}
 		}
+		if (rand.nextInt(100)+1 <= 10){		// 10 % chance of damaging the crop and turn them back into dirt
+			if (map.locationOf(this).getGround().getDisplayChar() - 'C' == 0 ){
+				return new UnsowAction();
+			}
+		}
 
 		for (Behaviour behaviour : behaviours) {
 			if (num_of_legs==2){
@@ -108,7 +113,6 @@ public class Zombie extends ZombieActor {
 			else if (num_of_legs==0){
 				Action action = behaviour.getAction(this, map);
 				if (behaviour instanceof WanderBehaviour || behaviour instanceof HuntBehaviour) {    // if current action is to move
-//					System.out.println(name + " can't move as it has no more legs");
 					return new DoNothingAction();    // zombie can't move at all
 				}
 				else{

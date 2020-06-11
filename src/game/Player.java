@@ -4,14 +4,18 @@ import edu.monash.fit2099.engine.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Class representing the Player.
  */
 public class Player extends Human {
 	private Menu menu = new Menu();
-	private ArrayList<Item> itemsToDelete= new ArrayList<>();
-
+	private Boolean flag = false;
+	private int tick = 0;
+	private final int max_tick = 15;
+	private Random rand = new Random();
+	private ArrayList<Item> itemsToDelete = new ArrayList<>();
 
 
 	/**
@@ -27,15 +31,24 @@ public class Player extends Human {
 
 	/**
 	 * Player actions when its turn to play. If there is food or zombie limbs add in the appropriate action in actions list
-	 * @param actions list of actions that player is allow to have
+	 *
+	 * @param actions    list of actions that player is allow to have
 	 * @param lastAction the last action that the player had
-	 * @param map map of game
-	 * @param display display
+	 * @param map        map of game
+	 * @param display    display
 	 * @return return the action that is chosen by player
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
-		List<Item> groundItems = map.locationOf(this).getItems();
+		this.tick += 1;
+		if (tick >= max_tick){	// currently max_tick is 15, change it to 1 for testing.
+			this.tick = 0;
+			if (rand.nextInt(100)+1 <= 50){		// 50% chance of having an armour beside him
+//			if (true){	// comment out the top line and uncomment this line for testing
+				map.locationOf(this).addItem(new Armour());
+				}
+			}
+
 		//always checks if there are any zombie limbs in the inventory
 		List<Item> inventory = this.getInventory();
 		for (Item item : inventory) {
@@ -48,16 +61,25 @@ public class Player extends Human {
 				actions.add(new EatAction());
 			}
 			if (item.getDisplayChar() - 'S' == 0){
-
 				if (((Shotgun) item).getBullets()>0)
 					actions.add(new Shoot(item));
-				loadBullets(this,';',item);
+				loadBullets(this,item);
 
 			}
 			if (item.getDisplayChar()-'R'==0){
-				if (((SniperRifle) item).getBullets()>0)
-					actions.add(new Shoot(item));
-				loadBullets(this,':',item);
+				if(((SniperRifle) item).getAim() &&(lastAction.menuDescription(this).contains("aims") ||
+						lastAction.menuDescription(this).contains("shoots"))){
+					actions.add(new AttackAction(((SniperRifle) item).getTarget()));
+					actions.add(new AimAction(((SniperRifle) item).getTarget(),(SniperRifle)item));
+				}
+				else {
+					//maybe make this all into one method?
+					((SniperRifle) item).reset();
+					if (((SniperRifle) item).getBullets() > 0) {
+							actions.add(new Shoot(item));
+					}
+					loadBullets(this, item);
+				}
 			}
 
 
@@ -65,9 +87,10 @@ public class Player extends Human {
 		for(Item items: itemsToDelete){
 			this.removeItemFromInventory(items);
 		}
-		AroundLocation location =new AroundLocation(this,map);
-		for(Location locate : location.getLocation(this,map)){
-			if(locate.getGround().hasCapability(CropCapability.Ripe)){
+
+		AroundLocation location = new AroundLocation(this, map);
+		for (Location locate : location.getLocation(this, map)) {
+			if (locate.getGround().hasCapability(CropCapability.Ripe)) {
 				actions.add(new HarvestAction());
 				break;
 			}
@@ -75,14 +98,16 @@ public class Player extends Human {
 		}
 
 		actions.add( new EndGame());
-		if (lastAction.getNextAction() != null)
-			return lastAction.getNextAction();
+
+		//do we need this???
+//		if (lastAction.getNextAction() != null)
+//			return lastAction.getNextAction();
 
 		return menu.showMenu(this,actions,display);
 
 	}
 
-	private void loadBullets(Actor actor, char character, Item rangedWeapon){
+	private void loadBullets(Actor actor, Item rangedWeapon){
 		List<Item> inventory = actor.getInventory();
 		for (Item item: inventory){
 			if(rangedWeapon.getDisplayChar()-'S'==0 && item.getDisplayChar()-';'==0){
@@ -99,10 +124,10 @@ public class Player extends Human {
 	}
 	@Override
 	public Weapon getWeapon(){
-		ArrayList<Weapon> deletetemp= new ArrayList<>();
+		ArrayList<Weapon> deletetemp= new ArrayList<>();//delete the ammunition after loading it
 
 		ArrayList<Weapon> weapons = new ArrayList<>();
-		for(Item item: this.getInventory()){
+		for(Item item: this.getInventory()){ //get the weapon in the inventory
 			if(item.asWeapon() != null){
 				weapons.add((Weapon)item);
 			}
@@ -110,24 +135,23 @@ public class Player extends Human {
 		if(weapons.size()==0){ ///when you have no weapons
 			return this.getIntrinsicWeapon();
 		}
-		for(Weapon weapon1: weapons){
-			Boolean flag=false;
+		for(Weapon weapon1: weapons){ //loop through the weapon
 			if(weapon1 instanceof Shotgun){
 				if(((Shotgun) weapon1).getBullets()>0){
 					return weapon1;
 				}
-				deletetemp.add(weapon1);
+				deletetemp.add(weapon1); //delete shotgun so can get other weapon
 				flag=true;
 			}
 			if(weapon1 instanceof SniperRifle){
 				if(((SniperRifle) weapon1).getBullets()>0){
 					return weapon1;
 				}
-				deletetemp.add(weapon1);
+				deletetemp.add(weapon1); //delete sniper rifle
 				flag=true;
 			}
 			if(!flag){
-				return weapon1;
+				return weapon1;//if is not sniper or shotgun the used it
 			}
 
 		}

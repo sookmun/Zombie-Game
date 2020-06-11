@@ -58,9 +58,16 @@ public class AttackAction extends Action {
 				return actor + " misses " + target + ".";    //    misses the target
 			}
 		}
-		else if (actor.hasCapability(ZombieCapability.ALIVE) && weapon instanceof Shotgun){
+		else if (actor instanceof Player && weapon instanceof Shotgun){
 			if(rand.nextDouble() >0.75){ //shotgun probability is 0.75
 				return actor + " misses " + target + ".";
+			}
+		}
+		else if (actor instanceof Player && weapon instanceof SniperRifle){
+			System.out.println(((SniperRifle) weapon).getProbability());
+			if(rand.nextDouble() > ((SniperRifle) weapon).getProbability()){
+				((SniperRifle) weapon).reset(); //after shooting revert
+				return actor + " misses "+ target + ".";
 			}
 		}
 		else {    // if not Zombie or the Zombie's IntrinsicWeapon is 'punches'
@@ -71,6 +78,10 @@ public class AttackAction extends Action {
 
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
+		if(target instanceof Player && target.getWeapon() instanceof SniperRifle){
+			((SniperRifle) target.getWeapon()).setAim(false);
+			result += '\n'+"Player losses aim";
+		}
 
 		// if a successful zombie bite attack add 5 health points
 		if(actor.hasCapability(ZombieCapability.UNDEAD) && weapon.verb().equals("bites")){
@@ -107,6 +118,9 @@ public class AttackAction extends Action {
 			map.removeActor(target);
 			result += System.lineSeparator() + target + " is killed.";
 
+		}
+		if(weapon instanceof SniperRifle){
+			((SniperRifle) weapon).reset();
 		}
 		EndGame end= new EndGame();
 		String ret =end.checkAlive(map);
