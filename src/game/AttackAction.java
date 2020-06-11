@@ -107,6 +107,11 @@ public class AttackAction extends Action {
 				corpse = new Corpse(target+"", map); 	// Only Corpse() can rise
 			}
 
+			if (target instanceof MamboMarie){	//mambo marie is dead
+				((MamboMarie) target).setAlive(false);
+				((MamboMarie) target).is_killed();
+			}
+
 			map.locationOf(target).addItem(corpse);
 			Actions dropActions = new Actions();
 			for (Item item : target.getInventory())

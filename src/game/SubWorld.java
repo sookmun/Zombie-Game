@@ -13,6 +13,7 @@ public class SubWorld extends World {
     public SubWorld(Display display) {
         super(display);
     }
+    protected boolean mambo_alive = true;
 
     @Override
     public void run() {
@@ -23,11 +24,6 @@ public class SubWorld extends World {
         for (Actor actor : actorLocations) {
             lastActionMap.put(actor, new DoNothingAction());
         }
-
-
-//        boolean mambo = false;  // mambo is false, means Mambo Marie does not exist in the map
-
-
 
         // This loop is basically the whole game
         while (stillRunning()) {
@@ -56,17 +52,16 @@ public class SubWorld extends World {
 
                 if (gameMap.toString().equals("edu.monash.fit2099.engine.GameMap@2503dbd3")){
                     if (!mambo){
-                        if (new Random().nextInt(100) + 1 <= 90){
-                            Location location = new Location(gameMap, 0, 0);
-                            if (!location.containsAnActor()){
-                                gameMap.at(0,0).addActor(new MamboMarie());
-                                System.out.println("Mambo Marie is added ");
+                        if (mambo_alive){
+                            if (new Random().nextInt(100) + 1 <= 90){
+                                Location location = new Location(gameMap, 0, 0);
+                                if (!location.containsAnActor()){
+                                    gameMap.at(0,0).addActor(new MamboMarie(this));
+                                    System.out.println("Mambo Marie is added ");
+                                }
                             }
                         }
                 }
-
-
-
                 }
             }
 

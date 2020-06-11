@@ -8,6 +8,8 @@ public class MamboMarie extends ZombieActor {
     protected int create_zombie_count = 0;
     protected  int vanish_count = 0;
     protected Random rand = new Random();
+    protected boolean alive = true;
+    protected SubWorld subWorld;
 
     private Behaviour[] behaviours = {
             new AttackBehaviour(ZombieCapability.UNDEAD),
@@ -15,8 +17,9 @@ public class MamboMarie extends ZombieActor {
     };
 
 
-    public MamboMarie() {
+    public MamboMarie(SubWorld world) {
         super("MAMBO MARIE" , 'V', 100, ZombieCapability.UNDEAD);
+        this.subWorld = world;
     }
 
     @Override
@@ -49,4 +52,20 @@ public class MamboMarie extends ZombieActor {
         create_zombie_count +=1;
         vanish_count += 1;
     }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public void is_killed(){
+        if (!isAlive()){
+            this.subWorld.mambo_alive = false;
+        }
+    }
+
+
 }
