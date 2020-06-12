@@ -31,6 +31,7 @@ public class Shoot extends Action{
     public String execute(Actor actor, GameMap map){
         String result="";
         if (weaponItem instanceof Shotgun){
+            ((Player) actor).setWeaponChosen((Weapon)weaponItem);
             if(((Shotgun) weaponItem).getBullets() > 0) {
                 range(actor, map, 3);
                 result += Shotgun(actor,map);
@@ -42,6 +43,7 @@ public class Shoot extends Action{
         }
         else{
             if(((SniperRifle) weaponItem).getBullets() > 0) {
+                ((Player) actor).setWeaponChosen((Weapon)weaponItem);
                 if(map.getYRange().max()>map.getXRange().max()){
                     range(actor, map, map.getYRange().max());
                     result += Shotgun(actor,map);

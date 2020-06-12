@@ -60,6 +60,17 @@ public class Zombie extends ZombieActor {
 		}
 	}
 
+	@Override
+	public Weapon getWeapon(){
+		for (Item item : inventory) {
+			if (item.asWeapon() != null && (!(item instanceof SniperRifle) &&!(item instanceof Shotgun)) ){
+				return item.asWeapon();
+			}
+
+		}
+		return getIntrinsicWeapon();
+	}
+
 
 	/**
 	 * If a Zombie can attack, it will.  If not, it will chase any human within 10 spaces.  
