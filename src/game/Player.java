@@ -73,12 +73,11 @@ public class Player extends Human {
 			if (item.getDisplayChar() - 'R' == 0) {
 				if (((SniperRifle) item).getAim() && (lastAction.menuDescription(this).contains("aims") ||
 						lastAction.menuDescription(this).contains("shoots"))) {
-					actions.add(new AttackAction(((SniperRifle) item).getTarget()));
+					actions.add(new AttackAction(((SniperRifle) item).getTarget())); // if it was aming or it shoots
 					actions.add(new AimAction(((SniperRifle) item).getTarget(), (SniperRifle) item));
 				} else {
-					//maybe make this all into one method?
 					((SniperRifle) item).reset();
-					if (((SniperRifle) item).getBullets() > 0) {
+					if (((SniperRifle) item).getBullets() > 0) { //if sniper rifle has bullets
 						actions.add(new Shoot(item));
 					}
 					loadBullets(this, item);
@@ -87,7 +86,7 @@ public class Player extends Human {
 
 
 		}
-		for (Item items : itemsToDelete) {
+		for (Item items : itemsToDelete) {//when reloading or armour delete the items
 			this.removeItemFromInventory(items);
 		}
 		itemsToDelete.clear();
@@ -170,7 +169,7 @@ public class Player extends Human {
 				actions.add(new ChooseWeapon((Weapon)item, Integer.toString(inventory.indexOf(item))));
 			}
 		}
-		if(weapons.size()==1){
+		if(weapons.size()==1){//if only one weapon just return that weapon
 			weaponChosen= weapons.get(0);
 			return weaponChosen;
 		}

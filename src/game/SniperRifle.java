@@ -14,11 +14,7 @@ public class SniperRifle extends WeaponItem{
     private Actor target;
     private Boolean aim;
 
-    /**
-     * A constructor for Sniper rifle. It has a capability Long Rage. Initial probabilty is 0.75 and damage 35 and the aim is
-     * false. because it is not being aim
-     * @author Tan Sook Mun
-     */
+
     public SniperRifle() {
         super("Sniper Rifle", 'R', 35, "snipe");
         addCapability(WeaponCapability.LONGRANGE);
@@ -83,10 +79,6 @@ public class SniperRifle extends WeaponItem{
     }
     public Actor getTarget(){return target;}
 
-    /**
-     * Checks if weapon is being aim
-     * @return a boolean of whether sniper is being aim
-     */
     public Boolean getAim() {
         return aim;
     }
@@ -95,9 +87,6 @@ public class SniperRifle extends WeaponItem{
         this.aim = aim;
     }
 
-    /**
-     * After fire the weapon, reset all of its values back to original state
-     */
     public void reset(){
         setDamage(35);
         setAim(false);

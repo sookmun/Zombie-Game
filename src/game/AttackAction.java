@@ -1,6 +1,4 @@
 package game;
-
-import java.util.ArrayList;
 import java.util.Random;
 
 import edu.monash.fit2099.engine.*;
@@ -60,13 +58,14 @@ public class AttackAction extends Action {
 		}
 		else if (actor instanceof Player && weapon instanceof Shotgun){
 			if(rand.nextDouble() >0.75){ //shotgun probability is 0.75
+				((Player) actor).setWeaponChosen(null); // revert it back
 				return actor + " misses " + target + ".";
 			}
 		}
 		else if (actor instanceof Player && weapon instanceof SniperRifle){
-			System.out.println(((SniperRifle) weapon).getProbability());
 			if(rand.nextDouble() > ((SniperRifle) weapon).getProbability()){
 				((SniperRifle) weapon).reset(); //after shooting revert
+				((Player) actor).setWeaponChosen(null);
 				return actor + " misses "+ target + ".";
 			}
 		}
@@ -126,7 +125,7 @@ public class AttackAction extends Action {
             ((Player) actor).setWeaponChosen(null);
 			((SniperRifle) weapon).reset();
 		}
-		EndGame end= new EndGame();
+		EndGame end= new EndGame(); // every time someone attack check if all humand is dead or all zombie is dead
 		String ret =end.checkAlive(map);
 		if (ret !=null){
 			result += ret;

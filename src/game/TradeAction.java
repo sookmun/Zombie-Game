@@ -17,11 +17,6 @@ public class TradeAction extends Action {
     protected boolean food;
     protected Random rand = new Random();
 
-    /**
-     * A constuctor for trade action
-     * @param target the actor to trade with
-     * @param Food  true is there is food and flase if not
-     */
     public TradeAction(Actor target, boolean Food) {
         this.target = target;
         this.food = Food;
@@ -31,7 +26,7 @@ public class TradeAction extends Action {
      * If there's food, trade with food; else trade without food
      * @param actor The actor performing the action.
      * @param map The map the actor is on.
-     * @return
+     * @return String description of action
      */
     @Override
     public String execute(Actor actor, GameMap map) {
@@ -81,11 +76,6 @@ public class TradeAction extends Action {
         return (target + " refuses to trade with " + actor);
     }
 
-    /**
-     *
-     * @param actor The actor performing the action.
-     * @return String description of action
-     */
     @Override
     public String menuDescription(Actor actor) {
         return actor + " requests to trade with " + target;
