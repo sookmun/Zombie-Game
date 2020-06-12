@@ -5,7 +5,11 @@ import edu.monash.fit2099.interfaces.ActorInterface;
 
 import java.util.ArrayList;
 
-
+/**
+ * A class that allow the game to ended earlier
+ *
+ * @author Tan Sook Mun
+ */
 public class EndGame extends Action {
     private Boolean hflag=true;
     private Boolean zflag = true;
@@ -24,8 +28,12 @@ public class EndGame extends Action {
         return "End Game";
     }
 
+    /**
+     * Check whether any human, farmers or zombies are left.
+     * @param map the map the player is at
+     *
+     */
     public String checkAlive(GameMap map){
-
         Actor player=null;
         for (int x=0 ; x<=map.getXRange().max()-1; x++){
             for (int y=0; y<map.getYRange().max()-1; y++){

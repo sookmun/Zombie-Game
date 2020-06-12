@@ -5,6 +5,10 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 import edu.monash.fit2099.engine.Weapon;
 
+/**
+ * A class that enable the player to choose his weapon
+ * @author Lai Ying Ying
+ */
 public class ChooseWeapon extends Action {
     private Weapon weapon;
     private String index;

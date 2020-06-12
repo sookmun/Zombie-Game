@@ -5,6 +5,11 @@ import edu.monash.fit2099.engine.*;
 
 import java.util.*;
 
+/**
+ * An ActionClass that allow the player to shoot
+ *
+ * @author Tan Sook Mun
+ */
 public class Shoot extends Action{
     private Item weaponItem;
     private Boolean flag=false;
@@ -24,10 +29,20 @@ public class Shoot extends Action{
     }    };
 
 
+    /**
+     * A constructor for the shoot action
+     * @param weaponItem The weapon used to shoot
+     */
     public Shoot(Item weaponItem){
         this.weaponItem =weaponItem;
     }
 
+    /**
+     * A function to execute the shoot action
+     * @param actor The actor performing the action.
+     * @param map The map the actor is on.
+     *
+     */
     public String execute(Actor actor, GameMap map){
         String result="";
         if (weaponItem instanceof Shotgun){

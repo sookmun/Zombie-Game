@@ -7,6 +7,10 @@ import edu.monash.fit2099.engine.Location;
 
 import java.util.Random;
 
+/**
+ * An action that chant and create 5 new zombies an random location
+ * @author Lai Ying Ying
+ */
 public class ChantAction extends Action {
     @Override
     public String execute(Actor actor, GameMap map) {

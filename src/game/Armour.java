@@ -1,6 +1,9 @@
 package game;
 
-
+/**
+ * A PortableItem that can reduce the damage caused by other weapons
+ * @author Lai Ying Ying
+ */
 public class Armour extends PortableItem {
     private int count = 0;
     private final int max = 3;

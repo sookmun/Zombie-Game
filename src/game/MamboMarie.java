@@ -4,6 +4,11 @@ import edu.monash.fit2099.engine.*;
 
 import java.util.Random;
 
+/**
+ * Mambo Marie
+ *
+ *
+ */
 public class MamboMarie extends ZombieActor {
     protected int create_zombie_count = 0;
     protected  int vanish_count = 0;
@@ -47,7 +52,10 @@ public class MamboMarie extends ZombieActor {
         return new DoNothingAction();
     }
 
-
+    /**
+     * A method that keep track of the number of turn
+     * @author Lai Ying Ying
+     */
     public void tick(){
         create_zombie_count +=1;
         vanish_count += 1;
@@ -61,6 +69,9 @@ public class MamboMarie extends ZombieActor {
         this.alive = alive;
     }
 
+    /**
+     * A method which change the status of mambo marie so that it would not be created again when its dead
+     */
     public void is_killed(){
         if (!isAlive()){
             this.subWorld.mambo_alive = false;
