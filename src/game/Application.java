@@ -89,11 +89,11 @@ public class Application {
 		town.at(10,6).addActor(new Zombie("Zombie Guard2"));
 		town.at(14,2).addActor(new Zombie("Zombie Guard3"));
 		town.at(1,10).addActor(new Human("Rick"));
-		town.at(2,10).addActor(new Human("Morty"));
+		town.at(2,10).addActor(new Farmer("Morty"));
 		town.at(3,10).addActor(new Human("Summer"));
-//		town.at(46,20).addActor(new Zombie("RARR"));
-//		town.at(46,20).addActor(new Zombie("RARR"));
-//		town.at(46,20).addActor(new Zombie("RARR"));
+		town.at(46,20).addActor(new Zombie("RARR"));
+		town.at(46,20).addActor(new Zombie("Decon"));
+		town.at(46,20).addActor(new Zombie("Garble Garble"));
 
 		Actor player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(42, 15));

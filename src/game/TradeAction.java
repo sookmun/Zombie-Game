@@ -13,11 +13,25 @@ public class TradeAction extends Action {
     protected boolean food;
     protected Random rand = new Random();
 
+    /**
+     * A constuctor for trade action
+     * @param target the actor to trade with
+     * @param Food  true is there is food and flase if not
+     */
     public TradeAction(Actor target, boolean Food) {
         this.target = target;
         this.food = Food;
     }
 
+
+    /**
+     * Checks the probability of the actor trading with Player. if human has at least a weapon it will be able to trade with human
+     * Human is able to refuse trade. When player trade with weapon and food the probability is higher
+     * @param actor The actor performing the action.
+     * @param map The map the actor is on.
+     * @return String statment of trad action
+     * @author Lai Ying Ying
+     */
     @Override
     public String execute(Actor actor, GameMap map) {
         int probability = 0;
@@ -66,6 +80,11 @@ public class TradeAction extends Action {
         return (target + " refuses to trade with " + actor);
     }
 
+    /**
+     *
+     * @param actor The actor performing the action.
+     * @return String description of action
+     */
     @Override
     public String menuDescription(Actor actor) {
         return actor + " requests to trade with " + target;

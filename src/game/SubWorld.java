@@ -9,6 +9,7 @@ public class SubWorld extends World {
      * Constructor.
      *
      * @param display the Display that will display this World.
+     * @author Lai Ying Ying
      */
     public SubWorld(Display display) {
         super(display);
@@ -69,8 +70,5 @@ public class SubWorld extends World {
         display.println(endGameMessage());
     }
 
-    public ActorLocations getActorLocations(){
-        return actorLocations;
-    }
 
 }
