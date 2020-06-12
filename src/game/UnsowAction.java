@@ -4,6 +4,9 @@ import edu.monash.fit2099.engine.Action;
 import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 
+/**
+ * A class that enable zombie and human to damage crop and turn them back to dirt
+ */
 public class UnsowAction extends Action {
 
     @Override
