@@ -34,7 +34,7 @@ public class Shotgun extends WeaponItem {
     }
 
     /**
-     * getter for the number of
+     * getter for the number of bullets
      * @return
      */
     public int getBullets(){

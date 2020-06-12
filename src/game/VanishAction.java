@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 
 /**
- * Allows Actor to travel between worlds
+ * A class that enabled MamboMarie to vanish from the map
  */
 public class VanishAction extends Action {
     /**

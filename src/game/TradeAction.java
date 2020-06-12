@@ -5,6 +5,10 @@ import edu.monash.fit2099.engine.*;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * A class that enables the player to trade with human
+ * @author Lai Ying Ying
+ */
 public class TradeAction extends Action {
     /**
      * The Actor to trade with
@@ -23,14 +27,11 @@ public class TradeAction extends Action {
         this.food = Food;
     }
 
-
     /**
-     * Checks the probability of the actor trading with Player. if human has at least a weapon it will be able to trade with human
-     * Human is able to refuse trade. When player trade with weapon and food the probability is higher
+     * If there's food, trade with food; else trade without food
      * @param actor The actor performing the action.
      * @param map The map the actor is on.
-     * @return String statment of trad action
-     * @author Lai Ying Ying
+     * @return
      */
     @Override
     public String execute(Actor actor, GameMap map) {

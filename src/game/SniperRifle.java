@@ -4,7 +4,8 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.WeaponItem;
 
 /**
- * A weapon Sniper Rifle
+ * Can aim at a target using sniper rifle and can cause more damage if aimed
+ * @author Tan Sook Mun
  */
 public class SniperRifle extends WeaponItem{
     private int bullets;
@@ -25,27 +26,26 @@ public class SniperRifle extends WeaponItem{
         probability=0.75;
         damage=35;
         aim=false;
-
     }
 
     /**
-     * A method to load bullets
-     * @param noOfBullets the number of times you can fire the weapon
+     * Load bullets into sniper rifle
+     * @param noOfBullets number of bullets to be loaded
      */
     public void loadBullets(int noOfBullets){
         bullets+=noOfBullets;
     }
 
     /**
-     * When weapon is fired, Number of bullets minus 1
+     * Reduce one bullet when fired
      */
     public void fired(){
         bullets-=1;
     }
 
     /**
-     * return the number of bullets left
-     * @return bullet
+     * get the number of butters
+     * @return the number of bullets
      */
     public int getBullets(){
         return bullets;
@@ -66,14 +66,14 @@ public class SniperRifle extends WeaponItem{
     }
 
     /**
-     * doubling the damage
+     * A method that cause double the amount of damage to the target
      */
     public void double_damage(){
         damage+=damage;
     }
 
     /**
-     * setting damage higher than target health points
+     * A method that allow the target to be killed instantly
      */
     public void instakill(){
         damage=110;

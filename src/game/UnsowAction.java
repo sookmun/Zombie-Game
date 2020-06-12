@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.Actor;
 import edu.monash.fit2099.engine.GameMap;
 
 /**
- * An action for actors to damage crops
+ * A class that enable zombie and human to damage crop and turn them back to dirt
  */
 public class UnsowAction extends Action {
     /**
