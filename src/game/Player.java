@@ -88,7 +88,6 @@ public class Player extends Human {
 
 		}
 		for (Item items : itemsToDelete) {
-            System.out.println("OVER HERE" + items.toString());
 			this.removeItemFromInventory(items);
 		}
 		itemsToDelete.clear();

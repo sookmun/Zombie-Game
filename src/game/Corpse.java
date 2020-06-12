@@ -67,7 +67,7 @@ public class Corpse extends PortableItem {
             map.at(location.x(), location.y()).addActor(new Zombie(name));
 //            location.addActor(new Zombie(name));
             location.removeItem(location.getItems().get(location.getItems().size()-1)); // drop the last item in the list, which is the corpse
-            System.out.println(name + "'s corpse rise as a zombie");
+//            System.out.println(name + "'s corpse rise as a zombie");
         }
     }
 }
