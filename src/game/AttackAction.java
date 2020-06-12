@@ -78,8 +78,8 @@ public class AttackAction extends Action {
 
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
-		if(target instanceof Player && target.getWeapon() instanceof SniperRifle){
-			((SniperRifle) target.getWeapon()).setAim(false);
+		if(target instanceof Player && ((Player) target).getWeaponChosen() instanceof SniperRifle){
+			((SniperRifle) ((Player) target).getWeaponChosen()).setAim(false);
 			result += '\n'+"Player losses aim";
 		}
 
@@ -123,6 +123,7 @@ public class AttackAction extends Action {
 
 		}
 		if(weapon instanceof SniperRifle){
+            ((Player) actor).setWeaponChosen(null);
 			((SniperRifle) weapon).reset();
 		}
 		EndGame end= new EndGame();

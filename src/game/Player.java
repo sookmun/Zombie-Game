@@ -16,6 +16,9 @@ public class Player extends Human {
 	private final int max_tick = 15;
 	private Random rand = new Random();
 	private ArrayList<Item> itemsToDelete = new ArrayList<>();
+	private GameMap map;
+	private List<Item> inventory = new ArrayList<>();
+	private Weapon weaponChosen;
 
 
 	/**
@@ -40,6 +43,7 @@ public class Player extends Human {
 	 */
 	@Override
 	public Action playTurn(Actions actions, Action lastAction, GameMap map, Display display) {
+		this.map=map;
 		this.tick += 1;
 		if (tick >= max_tick) {    // currently max_tick is 15, change it to 1 for testing.
 			this.tick = 0;
@@ -50,7 +54,7 @@ public class Player extends Human {
 		}
 
 		//always checks if there are any zombie limbs in the inventory
-		List<Item> inventory = this.getInventory();
+		inventory = this.getInventory();
 		for (Item item : inventory) {
 			if (item.getDisplayChar() - 'a' == 0 || item.getDisplayChar() - 'l' == 0) {
 				//if there is zombie limbs then add craft action
@@ -86,6 +90,7 @@ public class Player extends Human {
 		for (Item items : itemsToDelete) {
 			this.removeItemFromInventory(items);
 		}
+		itemsToDelete.clear();
 
 		AroundLocation location = new AroundLocation(this, map);
 		for (Location locate : location.getLocation(this, map)) {
@@ -122,64 +127,55 @@ public class Player extends Human {
 
 	}
 
-	@Override
-	public Weapon getWeapon() {
-		ArrayList<Weapon> deletetemp = new ArrayList<>();//delete the ammunition after loading it
 
+	@Override
+	public Weapon getWeapon(){
+        System.out.println("WEAPONS BEFORE:" +weaponChosen);
 		ArrayList<Weapon> weapons = new ArrayList<>();
-//		ArrayList<Weapon> other_weapons = new ArrayList<>();
-		for (Item item : this.getInventory()) { //get the weapon in the inventory
+		inventory=this.getInventory();
+		Actions actions = new Actions();
+		if(weaponChosen instanceof SniperRifle || weaponChosen instanceof Shotgun){
+//		    if(((SniperRifle) weaponChosen).getAim()) // if it is aiming then no need to choose weapon
+		        return weaponChosen;
+        }
+		for (Item item : inventory) { //get the weapons in the inventory
+//            System.out.println("WEAPON INVENTORY:" + item.toString() + (inventory.indexOf(item)));
 			if (item.asWeapon() != null) {
 				weapons.add((Weapon) item);
+				actions.add(new ChooseWeapon((Weapon)item, Integer.toString(inventory.indexOf(item))));
 			}
 		}
-		if (weapons.size() == 0) { ///when you have no weapons
-			return this.getIntrinsicWeapon();
+		if(weapons.size()==1){
+			weaponChosen= weapons.get(0);
+			return weaponChosen;
 		}
-
-//		Actions choose_weapons= new Actions();
-
-		for (Weapon weapon1 : weapons) { //loop through the weapon
-			if (weapon1 instanceof Shotgun) {
-				if (((Shotgun) weapon1).getBullets() > 0) {
-					return weapon1;
-				}
-				deletetemp.add(weapon1); //delete shotgun so can get other weapon
-				flag = true;
-			}
-			if (weapon1 instanceof SniperRifle) {
-				if (((SniperRifle) weapon1).getBullets() > 0) {
-					return weapon1;
-				}
-				deletetemp.add(weapon1); //delete sniper rifle
-				flag = true;
-			}
-			if (!flag) {
-//				other_weapons.add(weapon1);
-//				System.out.println(weapon1, "weapon1");
-//				choose_weapons.add(new ChooseWeapon(weapon1));
-
-				return weapon1;//if is not sniper or shotgun the used it
-
-			}
-		}
-//		if (!flag){
-//			Action chosen_weapon = menu.showMenu(this, choose_weapons,new Display());
-//			return chosen_weapon;
-//			System.out.println(chosen_weapon + "here");
-//			String weapon = wespon.execute(this,map);
-//
-//		}
-		for (Weapon weapon : deletetemp) {
-			this.removeItemFromInventory((Item) weapon);
-		}
-		Weapon weapon = this.getWeapon();
-		for (Weapon weapon1 : deletetemp) {
-			this.addItemToInventory((Item) weapon1);
-		}
-		return weapon;
+		Action action = menu.showMenu(this, actions,new Display());
+		String weapon=action.execute(this,map);
+		weaponChosen = (Weapon) inventory.get(Integer.parseInt(weapon));
+        System.out.println("WEAPONS BEFORE:" +weaponChosen);
+		return weaponChosen;
 	}
 
+	@Override
+	public void hurt(int points){
+		for(Item item :this.getInventory()){
+			if (item.getDisplayChar()-'U'==0 && ((Armour)item).use()){
+				this.hitPoints-=points- rand.nextInt(5);
+				return;
+			}
+			else{
+			    if(item.getDisplayChar()-'U'==0)
+				    itemsToDelete.add(item);}
+		}
+		this.hitPoints-=points;
+	}
 
+	public Weapon getWeaponChosen(){
+		return weaponChosen;
+	}
+
+    public void setWeaponChosen(Weapon weaponChosen) {
+        this.weaponChosen = weaponChosen;
+    }
 }
 

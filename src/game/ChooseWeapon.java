@@ -9,17 +9,17 @@ public class ChooseWeapon extends Action {
     private Weapon weapon;
     private String index;
 
-    public ChooseWeapon(Weapon weapon){
+    public ChooseWeapon(Weapon weapon, String index){
         this.weapon=weapon;
-//        this.index = index;
+        this.index = index;
     }
     @Override
     public String execute(Actor actor, GameMap map) {
-        return weapon.getClass().getName();
+        return index;
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " choose " + weapon;
+        return actor + " choose " + weapon + " that has " + weapon.damage() + " hit points.";
     }
 }
