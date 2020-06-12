@@ -103,9 +103,8 @@ public class Player extends Human {
 
 		actions.add(new EndGame());
 
-		//do we need this???
-//		if (lastAction.getNextAction() != null)
-//			return lastAction.getNextAction();
+		if (lastAction.getNextAction() != null)
+			return lastAction.getNextAction();
 
 		return menu.showMenu(this, actions, display);
 
@@ -130,16 +129,13 @@ public class Player extends Human {
 
 	@Override
 	public Weapon getWeapon(){
-        System.out.println("WEAPONS BEFORE:" +weaponChosen);
 		ArrayList<Weapon> weapons = new ArrayList<>();
 		inventory=this.getInventory();
 		Actions actions = new Actions();
 		if(weaponChosen instanceof SniperRifle || weaponChosen instanceof Shotgun){
-//		    if(((SniperRifle) weaponChosen).getAim()) // if it is aiming then no need to choose weapon
 		        return weaponChosen;
         }
 		for (Item item : inventory) { //get the weapons in the inventory
-//            System.out.println("WEAPON INVENTORY:" + item.toString() + (inventory.indexOf(item)));
 			if (item.asWeapon() != null) {
 				weapons.add((Weapon) item);
 				actions.add(new ChooseWeapon((Weapon)item, Integer.toString(inventory.indexOf(item))));
@@ -152,7 +148,6 @@ public class Player extends Human {
 		Action action = menu.showMenu(this, actions,new Display());
 		String weapon=action.execute(this,map);
 		weaponChosen = (Weapon) inventory.get(Integer.parseInt(weapon));
-        System.out.println("WEAPONS BEFORE:" +weaponChosen);
 		return weaponChosen;
 	}
 
