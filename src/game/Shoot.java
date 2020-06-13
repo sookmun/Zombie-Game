@@ -172,6 +172,7 @@ public class Shoot extends Action{
         }
         if (result.equals("")){
             result += "Shoot in the direction of "+ retDirection.get(1) + " No Zombies was shoot";
+            ((Player)actor).setWeaponChosen(null);
         }
 
         return result;
