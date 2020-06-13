@@ -91,7 +91,7 @@ public class Player extends Human {
 		}
 		itemsToDelete.clear();
 
-		AroundLocation location = new AroundLocation(this, map);
+		AroundLocation location = new AroundLocation(this, map); //player harvesting the crop
 		for (Location locate : location.getLocation(this, map)) {
 			if (locate.getGround().hasCapability(CropCapability.Ripe)) {
 				actions.add(new HarvestAction());
@@ -166,8 +166,14 @@ public class Player extends Human {
 		for (Item item : inventory) { //get the weapons in the inventory
 			if (item.asWeapon() != null) {
 				weapons.add((Weapon) item);
-				actions.add(new ChooseWeapon((Weapon)item, Integer.toString(inventory.indexOf(item))));
+				if(!(item instanceof SniperRifle) && !(item instanceof Shotgun)){
+					actions.add(new ChooseWeapon((Weapon)item, Integer.toString(inventory.indexOf(item))));
+				}
+//
 			}
+		}
+		if(weapons.isEmpty()){
+			return getIntrinsicWeapon();
 		}
 		if(weapons.size()==1){//if only one weapon just return that weapon
 			weaponChosen= weapons.get(0);

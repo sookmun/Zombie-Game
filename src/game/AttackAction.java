@@ -61,6 +61,7 @@ public class AttackAction extends Action {
 				((Player) actor).setWeaponChosen(null); // revert it back
 				return actor + " misses " + target + ".";
 			}
+			((Player) actor).setWeaponChosen(null);
 		}
 		else if (actor instanceof Player && weapon instanceof SniperRifle){
 			if(rand.nextDouble() > ((SniperRifle) weapon).getProbability()){
@@ -68,6 +69,7 @@ public class AttackAction extends Action {
 				((Player) actor).setWeaponChosen(null);
 				return actor + " misses "+ target + ".";
 			}
+			((Player) actor).setWeaponChosen(null);
 		}
 		else {    // if not Zombie or the Zombie's IntrinsicWeapon is 'punches'
 			if (rand.nextBoolean()) {            // Generate a random generator. 50% probability of attacking
@@ -79,6 +81,7 @@ public class AttackAction extends Action {
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 		if(target instanceof Player && ((Player) target).getWeaponChosen() instanceof SniperRifle){
 			((SniperRifle) ((Player) target).getWeaponChosen()).setAim(false);
+			((Player) target).setWeaponChosen(null);
 			result += '\n'+"Player losses aim";
 		}
 
@@ -122,7 +125,6 @@ public class AttackAction extends Action {
 
 		}
 		if(weapon instanceof SniperRifle){
-            ((Player) actor).setWeaponChosen(null);
 			((SniperRifle) weapon).reset();
 		}
 		EndGame end= new EndGame(); // every time someone attack check if all humand is dead or all zombie is dead
