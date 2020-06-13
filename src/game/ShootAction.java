@@ -10,7 +10,7 @@ import java.util.*;
  *
  * @author Tan Sook Mun
  */
-public class Shoot extends Action{
+public class ShootAction extends Action{
     private Item weaponItem;
     private Boolean flag=false;
     private HashSet<Location> visitedLocations = new HashSet<Location>();
@@ -33,7 +33,7 @@ public class Shoot extends Action{
      * A constructor for the shoot action
      * @param weaponItem The weapon used to shoot
      */
-    public Shoot(Item weaponItem){
+    public ShootAction(Item weaponItem){
         this.weaponItem =weaponItem;
     }
 

@@ -66,7 +66,7 @@ public class Player extends Human {
 			}
 			if (item.getDisplayChar() - 'S' == 0) {
 				if (((Shotgun) item).getBullets() > 0)
-					actions.add(new Shoot(item));
+					actions.add(new ShootAction(item));
 				loadBullets(this, item);
 
 			}
@@ -78,7 +78,7 @@ public class Player extends Human {
 				} else {
 					((SniperRifle) item).reset();
 					if (((SniperRifle) item).getBullets() > 0) { //if sniper rifle has bullets
-						actions.add(new Shoot(item));
+						actions.add(new ShootAction(item));
 					}
 					loadBullets(this, item);
 				}
