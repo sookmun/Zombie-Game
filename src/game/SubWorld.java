@@ -9,6 +9,7 @@ public class SubWorld extends World {
      * Constructor.
      *
      * @param display the Display that will display this World.
+     * @author Lai Ying Ying
      */
     public SubWorld(Display display) {
         super(display);
@@ -37,12 +38,12 @@ public class SubWorld extends World {
                 if (actor instanceof MamboMarie){
                     mambo = true;   // change mambo into true when Mambo Marie exist in the map
                 }
-                if (stillRunning()){//maybe can change here for end game
-//                    try {
-                    processActorTurn(actor);
-//                    }
-//                catch (IllegalArgumentException e){
-//                    System.out.println("Vehicle in used. try again in a few turns");
+                if (stillRunning()) {//maybe can change here for end game
+                    try {
+                        processActorTurn(actor);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Vehicle in used. try again in a few turns");
+                    }
                 }
             }
 
@@ -69,8 +70,5 @@ public class SubWorld extends World {
         display.println(endGameMessage());
     }
 
-    public ActorLocations getActorLocations(){
-        return actorLocations;
-    }
 
 }

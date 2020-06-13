@@ -53,6 +53,9 @@ public class EndGame extends Action {
                 }
             }
         }
+        if ((hflag || zflag) && player == null){
+            return "Watch out player! Other Map is overun with zombies";
+        }
         if (hflag){
             map.removeActor(player);
             return '\n'+"No more humans left. Player lose";

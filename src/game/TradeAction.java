@@ -26,7 +26,7 @@ public class TradeAction extends Action {
      * If there's food, trade with food; else trade without food
      * @param actor The actor performing the action.
      * @param map The map the actor is on.
-     * @return
+     * @return String description of action
      */
     @Override
     public String execute(Actor actor, GameMap map) {

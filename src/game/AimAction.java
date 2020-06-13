@@ -25,14 +25,13 @@ public class AimAction extends Action {
      * @author Tan Sook Mun
      */
     public String execute(Actor actor, GameMap map){
-        //return two string and in the player check from there?
         if(sniperRifle.getProbability()==0.75){//first round of aiming
             sniperRifle.setProbability(0.9);
             sniperRifle.double_damage();
         }
         else{ //second round of aiming
             sniperRifle.setProbability(1);
-            sniperRifle.instakill();
+            sniperRifle.instakill(); // instant kill the target
             AttackAction attack= new AttackAction(target);
             return attack.execute(actor,map);
         }

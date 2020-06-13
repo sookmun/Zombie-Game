@@ -72,15 +72,15 @@ public class Application {
 		GameMap town = new GameMap(groundFactory, townMap);
 		world.addGameMap(town);
 		Vehicle vehicle = new Vehicle();
-		vehicle.addAction(new MoveActorAction(town.at(45,12), "go to town"));
+		vehicle.addAction(new MoveActorAction(town.at(45,12), " to town"));
 		gameMap.at(65,12).addItem(vehicle);
 		gameMap.at(42,15).addItem(vehicle); // put near player easy for testing
-		gameMap.at(45,15).addItem(new ShotgunAmmunition());
-		gameMap.at(46,16).addItem(new SniperRifleAmmunition());
-
+		town.at(40,10).addItem(new ShotgunAmmunition());
+		town.at(25,5).addItem(new SniperRifleAmmunition());
+		town.at(6,5).addItem(new Spoon());
 		Vehicle vehicletoForest = new Vehicle();
 		town.at(45,12).addItem(vehicletoForest);
-		vehicletoForest.addAction(new MoveActorAction(gameMap.at(45,12), "go to forest"));
+		vehicletoForest.addAction(new MoveActorAction(gameMap.at(45,12), " to Compound"));
 		town.at(44,12).addItem(new Shotgun());
 		town.at(35,13).addItem(new SniperRifle());
 		town.at(36,14).addItem(new SniperRifleAmmunition());
@@ -89,8 +89,11 @@ public class Application {
 		town.at(10,6).addActor(new Zombie("Zombie Guard2"));
 		town.at(14,2).addActor(new Zombie("Zombie Guard3"));
 		town.at(1,10).addActor(new Human("Rick"));
-		town.at(2,10).addActor(new Human("dsdddddddddddddddd"));
-		town.at(3,10).addActor(new Human("blaaaaaaaaaaaaaaaa"));
+		town.at(2,10).addActor(new Farmer("Morty"));
+		town.at(3,10).addActor(new Human("Summer"));
+		town.at(46,14).addActor(new Zombie("RARR"));
+		town.at(26,9).addActor(new Zombie("Decon"));
+		town.at(38,5).addActor(new Zombie("Garble Garble"));
 
 		Actor player = new Player("Player", '@', 100);
 		world.addPlayer(player, gameMap.at(42, 15));
