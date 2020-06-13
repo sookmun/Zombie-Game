@@ -30,10 +30,10 @@ public class AroundLocation {
         if (map.getYRange().contains(y-1)){
             locations.add(map.at(x,y-1));
         }
-        if (map.getYRange().contains(x-1)){
+        if (map.getXRange().contains(x-1)){
             locations.add(map.at(x-1,y));
         }
-        if (map.getYRange().contains(x+1)&&map.getXRange().contains(y-1)){
+        if (map.getXRange().contains(x+1)&&map.getYRange().contains(y-1)){
             locations.add(map.at(x+1,y-1));
         }
         if (map.getXRange().contains(x-1) &&map.getYRange().contains(y-1)){
