@@ -54,7 +54,7 @@ public class SubWorld extends World {
                 if (gameMap.toString().equals("edu.monash.fit2099.engine.GameMap@2503dbd3")){
                     if (!mambo){
                         if (mambo_alive){
-                            if (new Random().nextInt(100) + 1 <= 90){
+                            if (new Random().nextInt(100) + 1 <= 5){
                                 Location location = new Location(gameMap, 0, 0);
                                 if (!location.containsAnActor()){
                                     gameMap.at(0,0).addActor(new MamboMarie(this));
