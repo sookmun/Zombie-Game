@@ -61,7 +61,7 @@ public class Shoot extends Action{
                 ((Player) actor).setWeaponChosen((Weapon)weaponItem);
                 if(map.getYRange().max()>map.getXRange().max()){
                     range(actor, map, map.getYRange().max());
-                    result += SniperRifle(actor,map); 
+                    result += SniperRifle(actor,map);
                 }
                 else{
                     range(actor, map, map.getXRange().max());
